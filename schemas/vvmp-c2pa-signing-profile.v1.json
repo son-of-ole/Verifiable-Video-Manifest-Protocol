@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vvmp.dev/schemas/vvmp-c2pa-signing-profile.v1.json",
+  "title": "VVMP C2PA Signing Profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "format",
+    "profile_id",
+    "trust_program",
+    "certificate_pem_path",
+    "private_key_pem_path",
+    "algorithm"
+  ],
+  "properties": {
+    "format": {
+      "const": "vvmp-c2pa-signing-profile/v1"
+    },
+    "profile_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "trust_program": {
+      "type": "string",
+      "enum": ["official-c2pa", "interim"]
+    },
+    "certificate_pem_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "private_key_pem_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "algorithm": {
+      "type": "string",
+      "enum": ["es256", "es384", "es512", "ps256", "ps384", "ps512", "ed25519"]
+    },
+    "tsa_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "note": {
+      "type": "string"
+    }
+  }
+}

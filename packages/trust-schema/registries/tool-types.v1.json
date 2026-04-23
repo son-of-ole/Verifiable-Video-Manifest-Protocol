@@ -1,0 +1,14 @@
+{
+  "registry_id": "vvmp.tool-types.v1",
+  "values": [
+    { "id": "language_model", "description": "Text generation or analysis model." },
+    { "id": "image_generator", "description": "Image generation model or service." },
+    { "id": "video_generator", "description": "Video generation model or service." },
+    { "id": "voice_synthesizer", "description": "Synthetic narration or voice engine." },
+    { "id": "music_generator", "description": "Music generation engine." },
+    { "id": "captioner", "description": "Captioning or subtitle generator." },
+    { "id": "guardrail_engine", "description": "Policy or safety review system." },
+    { "id": "render_engine", "description": "Render or transcode engine." },
+    { "id": "editor", "description": "Interactive editing tool or service." }
+  ]
+}

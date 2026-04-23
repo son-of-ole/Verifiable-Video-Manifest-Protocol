@@ -1,0 +1,10 @@
+{
+  "registry_id": "vvmp.hash-algorithms.v1",
+  "values": [
+    {
+      "id": "sha256",
+      "status": "required",
+      "description": "Baseline VVMP digest algorithm for canonical JSON and asset hashing."
+    }
+  ]
+}

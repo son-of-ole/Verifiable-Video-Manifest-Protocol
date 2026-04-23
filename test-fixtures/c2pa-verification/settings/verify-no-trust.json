@@ -1,0 +1,6 @@
+{
+  "verify": {
+    "verify_after_reading": true,
+    "verify_trust": false
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "valid": false,
+  "error_codes": ["VVMP_EXTENSION_UNKNOWN_CRITICAL"],
+  "profiles": {
+    "core_manifest": false
+  }
+}
+

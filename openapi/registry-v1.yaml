@@ -1,0 +1,421 @@
+openapi: 3.1.0
+info:
+  title: VVMP Registry API
+  version: 0.1.0-draft
+  description: |
+    Draft machine-readable contract for VVMP registry implementations.
+    This file is intended to be stack-neutral and usable by Next.js, FastAPI,
+    Express, Go, Spring, ASP.NET, and other server implementations.
+servers:
+  - url: https://example.vvmp.org
+paths:
+  /api/v1/manifests:
+    post:
+      summary: Publish a manifest
+      operationId: publishManifest
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PublishManifestRequest"
+      responses:
+        "201":
+          description: Manifest published
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PublishManifestResponse"
+        "400":
+          $ref: "#/components/responses/Problem"
+        "401":
+          $ref: "#/components/responses/Problem"
+        "403":
+          $ref: "#/components/responses/Problem"
+        "409":
+          $ref: "#/components/responses/Problem"
+        "422":
+          $ref: "#/components/responses/Problem"
+  /api/v1/manifests/{manifestId}:
+    get:
+      summary: Get manifest by ID
+      operationId: getManifestById
+      parameters:
+        - $ref: "#/components/parameters/ManifestId"
+        - name: view
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [public, full]
+        - name: version
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Manifest response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ManifestEnvelope"
+        "404":
+          $ref: "#/components/responses/Problem"
+  /api/v1/manifests/{manifestId}/versions:
+    get:
+      summary: Get manifest version history
+      operationId: getManifestVersions
+      parameters:
+        - $ref: "#/components/parameters/ManifestId"
+      responses:
+        "200":
+          description: Manifest versions
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ManifestVersionHistory"
+        "404":
+          $ref: "#/components/responses/Problem"
+  /api/v1/recovery-locators:
+    post:
+      summary: Register a recovery locator hook result
+      operationId: registerRecoveryLocator
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterRecoveryLocatorRequest"
+      responses:
+        "201":
+          description: Recovery locator registered
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RecoveryLocatorResolution"
+        "400":
+          $ref: "#/components/responses/Problem"
+        "401":
+          $ref: "#/components/responses/Problem"
+        "404":
+          $ref: "#/components/responses/Problem"
+        "409":
+          $ref: "#/components/responses/Problem"
+  /api/v1/trust-codes/{trustCode}:
+    get:
+      summary: Resolve trust code
+      operationId: resolveTrustCode
+      parameters:
+        - $ref: "#/components/parameters/TrustCode"
+      responses:
+        "200":
+          description: Trust code resolution
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TrustCodeResolution"
+        "404":
+          $ref: "#/components/responses/Problem"
+  /api/v1/recovery-locators/{method}/{value}:
+    get:
+      summary: Resolve a recovery locator
+      operationId: getRecoveryLocator
+      parameters:
+        - name: method
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [watermark, fingerprint]
+        - name: value
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Recovery locator resolution
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RecoveryLocatorResolution"
+        "404":
+          $ref: "#/components/responses/Problem"
+  /api/v1/verify:
+    post:
+      summary: Verify by manifest, trust code, or asset hash
+      operationId: verify
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VerifyRequest"
+      responses:
+        "200":
+          description: Verification result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VerifyResponse"
+        "400":
+          $ref: "#/components/responses/Problem"
+  /api/v1/assets/{algorithm}/{value}:
+    get:
+      summary: Lookup by asset hash
+      operationId: getAssetByHash
+      parameters:
+        - name: algorithm
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: value
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Asset hash resolution
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VerifyResponse"
+        "404":
+          $ref: "#/components/responses/Problem"
+components:
+  parameters:
+    ManifestId:
+      name: manifestId
+      in: path
+      required: true
+      schema:
+        type: string
+    TrustCode:
+      name: trustCode
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    Problem:
+      description: Problem response
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/Problem"
+  schemas:
+    PublishManifestRequest:
+      type: object
+      required: [manifest, profile, visibility]
+      properties:
+        manifest:
+          type: object
+          description: VVMP manifest payload
+        profile:
+          type: string
+        visibility:
+          type: string
+    PublishManifestResponse:
+      type: object
+      required: [manifest_id, version_id, published_at, links]
+      properties:
+        manifest_id:
+          type: string
+        version_id:
+          type: string
+        trust_code:
+          type: string
+        published_at:
+          type: string
+          format: date-time
+        links:
+          type: object
+          additionalProperties:
+            type: string
+    ManifestEnvelope:
+      type: object
+      required: [manifest_id, manifest]
+      properties:
+        manifest_id:
+          type: string
+        version_id:
+          type: string
+        manifest:
+          type: object
+    ManifestVersionHistory:
+      type: object
+      required: [manifest_id, versions]
+      properties:
+        manifest_id:
+          type: string
+        versions:
+          type: array
+          items:
+            type: object
+            required: [version_id, published_at]
+            properties:
+              version_id:
+                type: string
+              published_at:
+                type: string
+                format: date-time
+              superseded_by:
+                type: string
+              change_reason:
+                type: string
+    TrustCodeResolution:
+      type: object
+      required: [trust_code, manifest_id]
+      properties:
+        trust_code:
+          type: string
+        manifest_id:
+          type: string
+        current_version_id:
+          type: string
+        trust_page_url:
+          type: string
+    VerifyRequest:
+      type: object
+      required: [mode]
+      properties:
+        mode:
+          type: string
+          enum: [manifest_payload, manifest_id, trust_code, asset_hash, recovery_locator]
+        manifest_id:
+          type: string
+        trust_code:
+          type: string
+        manifest:
+          type: object
+        asset_hash:
+          type: object
+          properties:
+            algorithm:
+              type: string
+            value:
+              type: string
+        recovery_locator:
+          type: object
+          required: [method, value]
+          properties:
+            method:
+              type: string
+              enum: [watermark, fingerprint]
+            value:
+              type: string
+    VerifyResponse:
+      type: object
+      required: [matched]
+      properties:
+        matched:
+          type: boolean
+        match_type:
+          type: string
+        manifest_id:
+          type: string
+        trust_code:
+          type: string
+        recovery_locator:
+          type: object
+          properties:
+            method:
+              type: string
+              enum: [watermark, fingerprint]
+            value:
+              type: string
+        file_trust_state:
+          type: string
+        recovery_refs:
+          type: array
+          items:
+            $ref: "#/components/schemas/RecoveryLocatorReference"
+    RegisterRecoveryLocatorRequest:
+      type: object
+      required: [manifest_id, method, value]
+      properties:
+        manifest_id:
+          type: string
+        version_id:
+          type: string
+        trust_code:
+          type: string
+        method:
+          type: string
+          enum: [watermark, fingerprint]
+        value:
+          type: string
+        source:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+        registered_at:
+          type: string
+          format: date-time
+    RecoveryLocatorResolution:
+      type: object
+      required: [matched, recovery_locator]
+      properties:
+        matched:
+          type: boolean
+        match_type:
+          type: string
+        manifest_id:
+          type: string
+        trust_code:
+          type: string
+        file_trust_state:
+          type: string
+        recovery_locator:
+          type: object
+          required: [method, value]
+          properties:
+            method:
+              type: string
+              enum: [watermark, fingerprint]
+            value:
+              type: string
+        recovery_refs:
+          type: array
+          items:
+            $ref: "#/components/schemas/RecoveryLocatorReference"
+    RecoveryLocatorReference:
+      type: object
+      required: [manifest_id, version_id, match_type, registered_at]
+      properties:
+        manifest_id:
+          type: string
+        version_id:
+          type: string
+        trust_code:
+          type: string
+        match_type:
+          type: string
+        source:
+          type: string
+        registered_at:
+          type: string
+          format: date-time
+        metadata:
+          type: object
+          additionalProperties: true
+    Problem:
+      type: object
+      required: [title, status]
+      properties:
+        type:
+          type: string
+        title:
+          type: string
+        status:
+          type: integer
+        code:
+          type: string
+        detail:
+          type: string
+        instance:
+          type: string

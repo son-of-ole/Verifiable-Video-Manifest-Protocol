@@ -1,0 +1,30 @@
+{
+  "sources": [
+    {
+      "visibility": "public",
+      "source_type": "article",
+      "source_id": "src_001",
+      "title": "Example Source"
+    },
+    {
+      "source_id": "src_002",
+      "source_type": "private_chat",
+      "visibility": "redacted_public",
+      "public_summary": "Private conversation"
+    }
+  ],
+  "video": {
+    "final_asset": {
+      "sha256": "sha256:test",
+      "duration_seconds": 12.5,
+      "format": "video/mp4"
+    },
+    "visibility": "public",
+    "title": "Fragment",
+    "video_id": "vid_fragment"
+  },
+  "flags": {
+    "published": false,
+    "reviewed": true
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "canonical_json": "{\"flags\":{\"published\":false,\"reviewed\":true},\"sources\":[{\"source_id\":\"src_001\",\"source_type\":\"article\",\"title\":\"Example Source\",\"visibility\":\"public\"},{\"public_summary\":\"Private conversation\",\"source_id\":\"src_002\",\"source_type\":\"private_chat\",\"visibility\":\"redacted_public\"}],\"video\":{\"final_asset\":{\"duration_seconds\":12.5,\"format\":\"video/mp4\",\"sha256\":\"sha256:test\"},\"title\":\"Fragment\",\"video_id\":\"vid_fragment\",\"visibility\":\"public\"}}",
+  "sha256": "a01ce5d359f588e2b991886b6d84f13ecbc9033a36a18e0a20f10aa1c9cdd0a8"
+}
+

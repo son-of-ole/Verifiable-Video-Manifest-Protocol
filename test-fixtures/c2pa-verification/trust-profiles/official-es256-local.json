@@ -1,0 +1,16 @@
+{
+  "format": "vvmp-local-trust-profile/v1",
+  "profile_id": "vvmp-ci-official-es256",
+  "created_at": "2026-04-22T00:00:00Z",
+  "signers": [
+    {
+      "signer_id": "cai_test_es256_signer",
+      "algorithm": "es256",
+      "issuer": "C2PA Test Signing Cert",
+      "common_name": "C2PA Signer",
+      "cert_serial_number": "640229841392226413189608867977836244731148734950",
+      "environment": "ci",
+      "note": "Upstream CAI ES256 public test fixture."
+    }
+  ]
+}

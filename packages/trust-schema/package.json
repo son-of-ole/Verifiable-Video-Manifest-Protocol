@@ -1,0 +1,20 @@
+{
+  "name": "@vvmp/trust-schema",
+  "version": "0.1.0",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "schemas",
+    "contexts",
+    "examples",
+    "registries"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@vvmp/trust-core": "0.1.0"
+  }
+}

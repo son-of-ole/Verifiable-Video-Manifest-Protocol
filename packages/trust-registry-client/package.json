@@ -1,0 +1,16 @@
+{
+  "name": "@vvmp/trust-registry-client",
+  "version": "0.1.0",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@vvmp/trust-registry": "0.1.0"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "official-es256-default",
+  "found": true,
+  "embedded": true,
+  "validationState": "Valid",
+  "verificationSummary": {
+    "manifest_state": "found",
+    "content_binding_state": "valid",
+    "signature_state": "valid",
+    "trust_state": "untrusted",
+    "overall_state": "content_bound_but_untrusted"
+  },
+  "requiredSuccessCodes": [
+    "claimSignature.validated",
+    "assertion.dataHash.match"
+  ],
+  "requiredFailureCodes": [
+    "signingCredential.untrusted"
+  ]
+}

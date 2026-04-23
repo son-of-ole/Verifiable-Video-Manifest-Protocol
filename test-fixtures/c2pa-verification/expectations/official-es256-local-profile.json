@@ -1,0 +1,27 @@
+{
+  "name": "official-es256-local-profile",
+  "found": true,
+  "embedded": true,
+  "validationState": "Valid",
+  "verificationSummary": {
+    "manifest_state": "found",
+    "content_binding_state": "valid",
+    "signature_state": "valid",
+    "trust_state": "untrusted",
+    "overall_state": "content_bound_but_untrusted"
+  },
+  "localTrustProfileSummary": {
+    "enabled": true,
+    "profile_id": "vvmp-ci-official-es256",
+    "trust_state": "trusted",
+    "matched_signer_id": "cai_test_es256_signer",
+    "reason": "trusted_profile_match"
+  },
+  "requiredSuccessCodes": [
+    "claimSignature.validated",
+    "assertion.dataHash.match"
+  ],
+  "requiredFailureCodes": [
+    "signingCredential.untrusted"
+  ]
+}

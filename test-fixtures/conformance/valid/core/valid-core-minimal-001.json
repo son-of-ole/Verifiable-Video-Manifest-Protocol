@@ -1,0 +1,106 @@
+{
+  "manifest_version": "1.0.0-draft",
+  "manifest_id": "urn:vvmp:manifest:valid-core-minimal-001",
+  "video": {
+    "video_id": "vid_demo_001",
+    "title": "A Sample Provenance-Aware Clip",
+    "created_at": "2026-04-20T00:00:00Z",
+    "creator_type": "user_assisted_ai",
+    "content_type": "education_summary",
+    "visibility": "public",
+    "final_asset": {
+      "format": "video/mp4",
+      "duration_seconds": 12.5,
+      "sha256": "sha256:demo-video-hash"
+    }
+  },
+  "creation": {
+    "workflow": "chat_to_video",
+    "human_oversight_level": "human_validated"
+  },
+  "sources": [
+    {
+      "source_id": "src_001",
+      "source_type": "article",
+      "title": "Foundations of Responsible AI Media",
+      "canonical_ref": "example://sources/foundations-of-responsible-ai-media",
+      "display_text": "Responsible AI media should preserve provenance.",
+      "visibility": "public"
+    }
+  ],
+  "prompts": [
+    {
+      "prompt_id": "prompt_001",
+      "prompt_type": "user_creation_prompt",
+      "visibility": "public",
+      "text": "Turn this source into a short educational vertical clip.",
+      "input_hash": "sha256:demo-prompt-hash",
+      "created_by": "user",
+      "created_at": "2026-04-20T00:01:00Z"
+    }
+  ],
+  "tools": [
+    {
+      "tool_id": "tool_script_001",
+      "tool_type": "language_model",
+      "provider": "example-provider",
+      "model_identifier": "example-model-1",
+      "purpose": "script_generation",
+      "human_oversight_level": "human_validated"
+    }
+  ],
+  "assets": [
+    {
+      "asset_id": "asset_visual_001",
+      "asset_type": "generated_visual",
+      "sha256": "sha256:demo-visual-hash"
+    }
+  ],
+  "timeline": [
+    {
+      "segment_id": "seg_001",
+      "time_range": {
+        "start": 0,
+        "end": 6.2
+      },
+      "visible_text": "This clip shows how provenance can be made inspectable.",
+      "narration_text": "This clip shows how provenance can be made inspectable.",
+      "claim_type": "summary",
+      "source_ids": ["src_001"],
+      "prompt_ids": ["prompt_001"],
+      "generation_event_ids": ["gen_script_001"],
+      "edit_event_ids": [],
+      "guardrail_event_ids": ["guard_001"],
+      "visual_asset_ids": ["asset_visual_001"],
+      "audio_asset_ids": []
+    }
+  ],
+  "edits": [],
+  "guardrails": [
+    {
+      "guardrail_event_id": "guard_001",
+      "policy_profile": "org.vvmp.demo",
+      "policy_version": "0.1.0",
+      "check_type": "source_grounding",
+      "target_type": "script_segment",
+      "target_id": "seg_001",
+      "verdict": "approved",
+      "risk_level": "low",
+      "public_summary": "Segment stayed aligned with the cited source.",
+      "review_mode": "automated"
+    }
+  ],
+  "rights": [],
+  "render": {
+    "engine": "ffmpeg",
+    "output_hash": "sha256:demo-video-hash"
+  },
+  "publication": {
+    "status": "draft"
+  },
+  "redactions": [],
+  "signatures": [],
+  "links": {},
+  "extensions": []
+}
+

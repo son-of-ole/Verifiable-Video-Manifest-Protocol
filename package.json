@@ -1,0 +1,45 @@
+{
+  "name": "vvmp",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace @vvmp/trust-core && npm run build --workspace @vvmp/trust-schema && npm run build --workspace @vvmp/policy-pack-sdk && npm run build --workspace @vvmp/trust-capture-sdk && npm run build --workspace @vvmp/trust-registry && npm run build --workspace @vvmp/trust-registry-client && npm run build --workspace @vvmp/trust-c2pa-adapter && npm run build --workspace @vvmp/trust-cli && npm run build --workspace @vvmp/trust-viewer && npm run build --workspace @vvmp/trust-registry-app",
+    "build:core": "npm run build --workspace @vvmp/trust-core",
+    "build:schema": "npm run build --workspace @vvmp/trust-core && npm run build --workspace @vvmp/trust-schema",
+    "build:capture": "npm run build --workspace @vvmp/policy-pack-sdk && npm run build --workspace @vvmp/trust-capture-sdk",
+    "build:registry-core": "npm run build --workspace @vvmp/policy-pack-sdk && npm run build --workspace @vvmp/trust-registry",
+    "build:registry-client": "npm run build --workspace @vvmp/trust-registry && npm run build --workspace @vvmp/trust-registry-client",
+    "build:policy": "npm run build --workspace @vvmp/policy-pack-sdk",
+    "build:registry": "npm run build:registry-core && npm run build --workspace @vvmp/trust-registry-app",
+    "build:adapter": "npm run build --workspace @vvmp/trust-c2pa-adapter",
+    "build:cli": "npm run build:registry-client && npm run build --workspace @vvmp/trust-c2pa-adapter && npm run build --workspace @vvmp/trust-cli",
+    "build:viewer": "npm run build --workspace @vvmp/trust-viewer",
+    "serve:viewer:e2e": "npm run build --workspace @vvmp/trust-viewer && npm run start --workspace @vvmp/trust-viewer -- --hostname 127.0.0.1 --port 3201",
+    "test:viewer:e2e": "playwright test",
+    "example:chat-to-video": "node examples/chat-to-video/run-example.mjs",
+    "conformance:js": "npm run build --workspace @vvmp/trust-core && node scripts/run-conformance-js.mjs",
+    "conformance:py": "python3 scripts/run_conformance.py",
+    "conformance:swift": "swift scripts/run_conformance.swift",
+    "conformance": "npm run conformance:js && npm run conformance:py && npm run conformance:swift",
+    "smoke:schema": "node scripts/smoke-trust-schema.mjs",
+    "smoke:policy": "node scripts/smoke-policy-pack.mjs",
+    "smoke:registry": "node scripts/smoke-registry.mjs",
+    "smoke:registry-client": "node scripts/smoke-registry-client.mjs",
+    "smoke:registry-cli": "node scripts/smoke-registry-cli.mjs",
+    "smoke:capture": "node scripts/smoke-capture-sdk.mjs",
+    "smoke:example": "node scripts/smoke-example-chat-to-video.mjs",
+    "smoke:recovery": "node scripts/smoke-recovery-cli.mjs",
+    "smoke:c2pa": "node scripts/smoke-c2pa-cli.mjs",
+    "smoke:c2pa-matrix": "node scripts/smoke-c2pa-verification-matrix.mjs",
+    "smoke:c2pa-trust-program": "node scripts/smoke-c2pa-trust-program.mjs",
+    "smoke:trustmark": "node scripts/smoke-trustmark-cli.mjs",
+    "verify:e2e": "npm run conformance && npm run build && npm run smoke:schema && npm run smoke:policy && npm run smoke:registry && npm run smoke:registry-client && npm run smoke:registry-cli && npm run smoke:capture && npm run smoke:example && npm run smoke:recovery && npm run smoke:c2pa && npm run smoke:c2pa-matrix && npm run smoke:c2pa-trust-program && npm run smoke:trustmark && npm run test:viewer:e2e"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.59.1"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "registry_id": "vvmp.extension-ids.v1",
+  "values": [
+    { "id": "org.vvmp.demo.policy.v1", "critical": false, "description": "Reference demo policy-pack declaration." },
+    { "id": "org.vvmp.registry.demo.policy.v1", "critical": false, "description": "Reference registry publish policy declaration." },
+    { "id": "org.faith.lds.policy.v1", "critical": false, "description": "Example faith-oriented policy-pack declaration." },
+    { "id": "org.vvmp.video.source_lineage", "critical": false, "description": "VVMP lineage assertion label for source provenance." },
+    { "id": "org.vvmp.video.segment_lineage", "critical": false, "description": "VVMP lineage assertion label for segment provenance." },
+    { "id": "org.vvmp.video.tool_lineage", "critical": false, "description": "VVMP lineage assertion label for tool provenance." },
+    { "id": "org.vvmp.video.edit_lineage", "critical": false, "description": "VVMP lineage assertion label for edit provenance." },
+    { "id": "org.vvmp.video.guardrail_lineage", "critical": false, "description": "VVMP lineage assertion label for guardrail provenance." }
+  ]
+}

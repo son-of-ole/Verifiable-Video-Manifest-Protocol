@@ -1,0 +1,10 @@
+{
+  "format": "vvmp-c2pa-signing-profile/v1",
+  "profile_id": "official-c2pa-example",
+  "trust_program": "official-c2pa",
+  "certificate_pem_path": "./conforming-signer-chain.pem",
+  "private_key_pem_path": "./conforming-signer.key",
+  "algorithm": "es256",
+  "tsa_url": "https://example-timestamp-authority.invalid/rfc3161",
+  "note": "Replace these paths with a real trust-program-issued signing credential."
+}

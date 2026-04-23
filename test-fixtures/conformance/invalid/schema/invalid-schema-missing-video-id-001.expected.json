@@ -1,0 +1,8 @@
+{
+  "valid": false,
+  "error_codes": ["VVMP_SCHEMA_REQUIRED_FIELD"],
+  "profiles": {
+    "core_manifest": false
+  }
+}
+

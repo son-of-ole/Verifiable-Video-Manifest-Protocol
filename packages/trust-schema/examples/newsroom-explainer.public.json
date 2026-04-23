@@ -1,0 +1,80 @@
+{
+  "manifest_version": "1.0.0-draft",
+  "manifest_id": "urn:vvmp:manifest:newsroom-explainer-public-001",
+  "video": {
+    "video_id": "vid_newsroom_001",
+    "trust_code": "VV-7N4Q-28XZ",
+    "title": "Newsroom Explainer Example",
+    "created_at": "2026-04-20T00:10:00Z",
+    "creator_type": "user_assisted_ai",
+    "content_type": "newsroom_explainer",
+    "visibility": "public",
+    "final_asset": {
+      "format": "video/mp4",
+      "duration_seconds": 18.4,
+      "sha256": "sha256:demo-video-hash-2"
+    }
+  },
+  "creation": {
+    "workflow": "chat_to_video",
+    "human_oversight_level": "human_validated"
+  },
+  "sources": [
+    {
+      "source_id": "src_001",
+      "source_type": "article",
+      "title": "Election Results Methodology Note",
+      "visibility": "public"
+    }
+  ],
+  "prompts": [
+    {
+      "prompt_id": "prompt_001",
+      "prompt_type": "user_creation_prompt",
+      "visibility": "public",
+      "text": "Create a short newsroom explainer grounded in the methodology note.",
+      "created_by": "user",
+      "created_at": "2026-04-20T00:11:00Z"
+    }
+  ],
+  "tools": [
+    {
+      "tool_id": "tool_script_001",
+      "tool_type": "language_model",
+      "purpose": "script_generation"
+    }
+  ],
+  "assets": [],
+  "timeline": [
+    {
+      "segment_id": "seg_001",
+      "time_range": {
+        "start": 0,
+        "end": 9
+      },
+      "claim_type": "summary",
+      "source_ids": ["src_001"],
+      "prompt_ids": ["prompt_001"],
+      "generation_event_ids": ["gen_script_001"],
+      "edit_event_ids": [],
+      "guardrail_event_ids": []
+    }
+  ],
+  "edits": [],
+  "guardrails": [],
+  "rights": [],
+  "render": {
+    "engine": "ffmpeg",
+    "output_hash": "sha256:demo-video-hash-2"
+  },
+  "publication": {
+    "status": "published",
+    "registry_url": "https://trust.example.com/v/VV-7N4Q-28XZ"
+  },
+  "redactions": [],
+  "signatures": [],
+  "links": {
+    "trust_page": "https://trust.example.com/v/VV-7N4Q-28XZ"
+  },
+  "extensions": []
+}

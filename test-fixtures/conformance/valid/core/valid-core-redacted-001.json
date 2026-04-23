@@ -1,0 +1,95 @@
+{
+  "manifest_version": "1.0.0-draft",
+  "manifest_id": "urn:vvmp:manifest:valid-core-redacted-001",
+  "video": {
+    "video_id": "vid_demo_003",
+    "title": "Redacted Provenance Demo",
+    "created_at": "2026-04-20T00:20:00Z",
+    "creator_type": "user_assisted_ai",
+    "content_type": "personal_reflection",
+    "visibility": "public",
+    "final_asset": {
+      "format": "video/mp4",
+      "duration_seconds": 14.2,
+      "sha256": "sha256:demo-video-hash-3"
+    }
+  },
+  "creation": {
+    "workflow": "chat_to_video",
+    "human_oversight_level": "human_validated"
+  },
+  "sources": [
+    {
+      "source_id": "src_private_001",
+      "source_type": "private_chat",
+      "visibility": "redacted_public",
+      "public_summary": "Private user conversation that initiated the clip."
+    }
+  ],
+  "prompts": [
+    {
+      "prompt_id": "prompt_001",
+      "prompt_type": "user_creation_prompt",
+      "visibility": "redacted_public",
+      "input_hash": "sha256:redacted-prompt",
+      "created_by": "user",
+      "created_at": "2026-04-20T00:21:00Z"
+    }
+  ],
+  "tools": [
+    {
+      "tool_id": "tool_script_001",
+      "tool_type": "language_model",
+      "purpose": "script_generation"
+    }
+  ],
+  "assets": [],
+  "timeline": [
+    {
+      "segment_id": "seg_001",
+      "time_range": {
+        "start": 0,
+        "end": 7.1
+      },
+      "claim_type": "ai_assisted_paraphrase",
+      "source_ids": ["src_private_001"],
+      "prompt_ids": ["prompt_001"],
+      "generation_event_ids": ["gen_script_001"],
+      "edit_event_ids": [],
+      "guardrail_event_ids": ["guard_001"]
+    }
+  ],
+  "edits": [],
+  "guardrails": [
+    {
+      "guardrail_event_id": "guard_001",
+      "policy_profile": "org.vvmp.demo",
+      "policy_version": "0.1.0",
+      "check_type": "privacy_preservation",
+      "target_type": "script_segment",
+      "target_id": "seg_001",
+      "verdict": "approved",
+      "review_mode": "human"
+    }
+  ],
+  "rights": [],
+  "render": {
+    "engine": "ffmpeg",
+    "output_hash": "sha256:demo-video-hash-3"
+  },
+  "publication": {
+    "status": "published"
+  },
+  "redactions": [
+    {
+      "redaction_id": "red_001",
+      "target_ref": "sources[0]",
+      "public_mode": "hash_and_summary",
+      "reason": "contains personal context"
+    }
+  ],
+  "signatures": [],
+  "links": {},
+  "extensions": []
+}
+

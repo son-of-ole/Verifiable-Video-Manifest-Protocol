@@ -1,0 +1,16 @@
+{
+  "observation_version": "1.0.0-draft",
+  "observed_at": "2026-04-22T18:00:00Z",
+  "trust_code": "VV-7N4Q-28XZ",
+  "trust_page_url": "https://trust.example.com/v/VV-7N4Q-28XZ",
+  "asset": {
+    "format": "video/mp4",
+    "sha256": "sha256:redistributed-copy-hash",
+    "duration_seconds": 18.6
+  },
+  "recovery": {
+    "method": "qr_url",
+    "locator": "https://trust.example.com/v/VV-7N4Q-28XZ"
+  },
+  "notes": "Re-encoded social copy recovered through the visible trust link."
+}

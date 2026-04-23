@@ -1,0 +1,15 @@
+{
+  "registry_id": "vvmp.source-types.v1",
+  "values": [
+    { "id": "scripture", "description": "Canonical religious source text." },
+    { "id": "article", "description": "Article or written explainer." },
+    { "id": "transcript", "description": "Transcript from spoken media." },
+    { "id": "private_chat", "description": "Private user chat or conversation input." },
+    { "id": "uploaded_document", "description": "User-provided document input." },
+    { "id": "newsroom_note", "description": "Internal newsroom note or briefing." },
+    { "id": "user_text", "description": "Plain user-authored text input." },
+    { "id": "image", "description": "Image source material." },
+    { "id": "audio", "description": "Audio source material." },
+    { "id": "video", "description": "Video source material." }
+  ]
+}

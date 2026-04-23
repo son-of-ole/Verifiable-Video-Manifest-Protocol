@@ -1,0 +1,54 @@
+{
+  "manifest_version": "1.0.0-draft",
+  "manifest_id": "urn:vvmp:manifest:invalid-timeline-missing-provenance-ref-001",
+  "video": {
+    "video_id": "vid_bad_004",
+    "title": "Missing Timeline Provenance",
+    "created_at": "2026-04-20T00:00:00Z",
+    "creator_type": "user_assisted_ai",
+    "visibility": "public",
+    "final_asset": {
+      "format": "video/mp4",
+      "duration_seconds": 8.0,
+      "sha256": "sha256:test"
+    }
+  },
+  "creation": {
+    "workflow": "chat_to_video",
+    "human_oversight_level": "human_validated"
+  },
+  "sources": [],
+  "prompts": [],
+  "tools": [],
+  "assets": [],
+  "timeline": [
+    {
+      "segment_id": "seg_bad_002",
+      "time_range": {
+        "start": 0,
+        "end": 3.0
+      },
+      "claim_type": "summary",
+      "source_ids": [],
+      "prompt_ids": [],
+      "generation_event_ids": [],
+      "edit_event_ids": [],
+      "guardrail_event_ids": []
+    }
+  ],
+  "edits": [],
+  "guardrails": [],
+  "rights": [],
+  "render": {
+    "engine": "ffmpeg",
+    "output_hash": "sha256:test"
+  },
+  "publication": {
+    "status": "draft"
+  },
+  "redactions": [],
+  "signatures": [],
+  "links": {},
+  "extensions": []
+}
+

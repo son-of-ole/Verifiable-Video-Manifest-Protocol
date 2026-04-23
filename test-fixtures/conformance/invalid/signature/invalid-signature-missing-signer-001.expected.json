@@ -1,0 +1,7 @@
+{
+  "valid": false,
+  "error_codes": ["VVMP_SIGNATURE_MISSING_FIELD"],
+  "profiles": {
+    "embedded_provenance": false
+  }
+}

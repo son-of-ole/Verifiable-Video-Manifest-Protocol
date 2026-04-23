@@ -1,0 +1,26 @@
+{
+  "name": "@vvmp/trust-cli",
+  "version": "0.1.0",
+  "private": true,
+  "main": "dist/cli.js",
+  "types": "dist/cli.d.ts",
+  "bin": {
+    "trust": "dist/cli.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@vvmp/trust-c2pa-adapter": "0.1.0",
+    "@vvmp/trust-core": "0.1.0",
+    "@vvmp/trust-registry": "0.1.0",
+    "@vvmp/trust-registry-client": "0.1.0",
+    "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "@types/qrcode": "^1.5.6"
+  }
+}

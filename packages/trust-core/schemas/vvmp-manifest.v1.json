@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vvmp.org/schemas/vvmp-manifest.v1.json",
+  "title": "VVMP Manifest v1 Draft",
+  "type": "object",
+  "required": [
+    "manifest_version",
+    "manifest_id",
+    "video",
+    "creation",
+    "sources",
+    "prompts",
+    "tools",
+    "assets",
+    "timeline",
+    "edits",
+    "guardrails",
+    "rights",
+    "render",
+    "publication",
+    "redactions",
+    "signatures",
+    "links",
+    "extensions"
+  ],
+  "properties": {
+    "manifest_version": {
+      "type": "string"
+    },
+    "manifest_id": {
+      "type": "string"
+    },
+    "video": {
+      "type": "object",
+      "required": [
+        "video_id",
+        "title",
+        "created_at",
+        "creator_type",
+        "visibility",
+        "final_asset"
+      ],
+      "properties": {
+        "video_id": {
+          "type": "string"
+        },
+        "trust_code": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "creator_type": {
+          "type": "string"
+        },
+        "content_type": {
+          "type": "string"
+        },
+        "visibility": {
+          "type": "string"
+        },
+        "final_asset": {
+          "type": "object",
+          "required": ["format", "duration_seconds", "sha256"],
+          "properties": {
+            "format": {
+              "type": "string"
+            },
+            "duration_seconds": {
+              "type": "number"
+            },
+            "sha256": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "signatures": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["signature_id", "type", "signer"],
+        "properties": {
+          "signature_id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "signer": {
+            "type": "string"
+          },
+          "signed_at": {
+            "type": "string"
+          },
+          "manifest_hash": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "valid": false,
+  "error_codes": ["VVMP_TIMELINE_MISSING_PROVENANCE_REF"],
+  "profiles": {
+    "core_manifest": false
+  }
+}
+

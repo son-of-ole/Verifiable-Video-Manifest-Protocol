@@ -1,0 +1,8 @@
+{
+  "valid": false,
+  "error_codes": ["VVMP_PROFILE_MISSING_TRUST_CODE"],
+  "profiles": {
+    "registry_backed": false
+  }
+}
+

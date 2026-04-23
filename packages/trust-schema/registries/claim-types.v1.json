@@ -1,0 +1,17 @@
+{
+  "registry_id": "vvmp.claim-types.v1",
+  "values": [
+    { "id": "quote", "description": "Direct quoted material from a source." },
+    { "id": "paraphrase", "description": "Human or machine paraphrase of a source." },
+    { "id": "context", "description": "Background context supplied around a source." },
+    { "id": "summary", "description": "Condensed summary of source material." },
+    { "id": "ai_assisted_summary", "description": "Summary produced with AI assistance." },
+    { "id": "ai_assisted_paraphrase", "description": "Paraphrase produced with AI assistance." },
+    { "id": "ai_assisted_reflection", "description": "Interpretive reflection produced with AI assistance." },
+    { "id": "user_authored", "description": "Material authored directly by the user." },
+    { "id": "personal_reflection", "description": "Personal commentary or reflection." },
+    { "id": "humor", "description": "Humorous framing or delivery." },
+    { "id": "parody", "description": "Parodic or satirical transformation." },
+    { "id": "opinion", "description": "Opinion or editorial commentary." }
+  ]
+}

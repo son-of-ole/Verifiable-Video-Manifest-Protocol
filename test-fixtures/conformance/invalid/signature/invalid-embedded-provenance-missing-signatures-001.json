@@ -1,0 +1,42 @@
+{
+  "manifest_version": "1.0.0-draft",
+  "manifest_id": "urn:vvmp:manifest:invalid-embedded-provenance-missing-signatures-001",
+  "video": {
+    "video_id": "vid_bad_006",
+    "trust_code": "VV-BAD-SIGN-01",
+    "title": "Missing Signatures",
+    "created_at": "2026-04-20T00:00:00Z",
+    "creator_type": "user_assisted_ai",
+    "visibility": "public",
+    "final_asset": {
+      "format": "video/mp4",
+      "duration_seconds": 9.3,
+      "sha256": "sha256:test"
+    }
+  },
+  "creation": {
+    "workflow": "chat_to_video",
+    "human_oversight_level": "human_validated"
+  },
+  "sources": [],
+  "prompts": [],
+  "tools": [],
+  "assets": [],
+  "timeline": [],
+  "edits": [],
+  "guardrails": [],
+  "rights": [],
+  "render": {
+    "engine": "ffmpeg",
+    "output_hash": "sha256:test"
+  },
+  "publication": {
+    "status": "published",
+    "profile_claim": "embedded_provenance"
+  },
+  "redactions": [],
+  "signatures": [],
+  "links": {},
+  "extensions": []
+}
+

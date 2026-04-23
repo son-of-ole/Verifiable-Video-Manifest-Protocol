@@ -1,0 +1,10 @@
+{
+  "registry_id": "vvmp.policy-pack-ids.v1",
+  "values": [
+    { "id": "org.vvmp.demo", "description": "Reference demo policy pack used in smoke tests." },
+    { "id": "org.vvmp.registry.demo", "description": "Reference registry publish policy pack used in smoke tests." },
+    { "id": "org.faith.lds", "description": "Example faith-oriented policy pack." },
+    { "id": "org.news.election-integrity", "description": "Example newsroom-oriented policy pack." },
+    { "id": "org.education.k12", "description": "Example education-oriented policy pack." }
+  ]
+}

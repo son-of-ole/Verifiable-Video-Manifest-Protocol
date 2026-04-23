@@ -1,0 +1,17 @@
+{
+  "valid": true,
+  "error_codes": [],
+  "profiles": {
+    "core_manifest": true,
+    "registry_backed": false,
+    "embedded_provenance": false,
+    "recovery_capable": false
+  },
+  "trust_states": {
+    "file_trust_state": "embedded_manifest_missing",
+    "provenance_coverage_state": "private_redacted_source",
+    "guardrail_state": "passed_human_review",
+    "ai_involvement_state": "ai_generated_with_human_approval"
+  }
+}
+

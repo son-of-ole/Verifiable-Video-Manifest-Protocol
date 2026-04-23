@@ -1,0 +1,5 @@
+{
+  "canonical_json": "{\"timeline\":[{\"claim_type\":\"summary\",\"source_ids\":[\"src_002\",\"src_001\"],\"time_range\":{\"end\":6.2,\"start\":0}}],\"video\":{\"title\":\"Canonical Demo\",\"video_id\":\"vid_demo\"}}",
+  "sha256": "35448f8777110fd3b2cacd6c593139895fce004dc2bbfa33671356881eb782eb"
+}
+

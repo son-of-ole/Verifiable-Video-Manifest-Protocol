@@ -1,0 +1,19 @@
+{
+  "name": "self-signed-no-trust",
+  "found": true,
+  "embedded": true,
+  "validationState": "Invalid",
+  "verificationSummary": {
+    "manifest_state": "found",
+    "content_binding_state": "valid",
+    "signature_state": "invalid",
+    "trust_state": "not_checked",
+    "overall_state": "content_bound_but_signature_invalid"
+  },
+  "requiredSuccessCodes": [
+    "assertion.dataHash.match"
+  ],
+  "requiredFailureCodes": [
+    "claimSignature.mismatch"
+  ]
+}

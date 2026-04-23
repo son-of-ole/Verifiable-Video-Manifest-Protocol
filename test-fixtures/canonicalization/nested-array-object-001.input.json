@@ -1,0 +1,20 @@
+{
+  "timeline": [
+    {
+      "claim_type": "summary",
+      "time_range": {
+        "end": 6.2,
+        "start": 0
+      },
+      "source_ids": [
+        "src_002",
+        "src_001"
+      ]
+    }
+  ],
+  "video": {
+    "title": "Canonical Demo",
+    "video_id": "vid_demo"
+  }
+}
+

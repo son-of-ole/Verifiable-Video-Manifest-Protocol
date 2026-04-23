@@ -1,0 +1,10 @@
+node_modules
+.next
+dist
+.DS_Store
+npm-debug.log*
+examples/chat-to-video/generated
+playwright-report
+test-results
+tmp-test
+vvmp-trusted-lane-doctor

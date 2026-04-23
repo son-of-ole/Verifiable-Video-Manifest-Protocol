@@ -1,0 +1,8 @@
+{
+  "valid": false,
+  "error_codes": ["VVMP_SIGNATURE_REQUIRED"],
+  "profiles": {
+    "embedded_provenance": false
+  }
+}
+

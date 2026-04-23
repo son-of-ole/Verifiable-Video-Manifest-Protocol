@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vvmp.org/schemas/vvmp-rendition-observation.v1.json",
+  "title": "VVMP Rendition Observation v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["observation_version", "observed_at", "asset", "recovery"],
+  "properties": {
+    "observation_version": {
+      "type": "string",
+      "const": "1.0.0-draft"
+    },
+    "observed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "trust_code": {
+      "type": "string",
+      "minLength": 1
+    },
+    "trust_page_url": {
+      "type": "string",
+      "minLength": 1
+    },
+    "asset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "minLength": 1
+        },
+        "duration_seconds": {
+          "type": "number",
+          "minimum": 0
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "recovery": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method"],
+      "properties": {
+        "method": {
+          "type": "string",
+          "enum": ["trust_code", "qr_url", "watermark", "fingerprint", "manual"]
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

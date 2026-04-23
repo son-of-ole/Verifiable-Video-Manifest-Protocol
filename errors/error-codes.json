@@ -1,0 +1,50 @@
+{
+  "version": "0.1.0-draft",
+  "codes": [
+    {
+      "code": "VVMP_SCHEMA_TYPE",
+      "family": "VVMP_SCHEMA_*",
+      "summary": "A field had the wrong structural type."
+    },
+    {
+      "code": "VVMP_SCHEMA_REQUIRED_FIELD",
+      "family": "VVMP_SCHEMA_*",
+      "summary": "A required field was missing or empty."
+    },
+    {
+      "code": "VVMP_TIMELINE_NEGATIVE_START",
+      "family": "VVMP_TIMELINE_*",
+      "summary": "A timeline segment start was below zero."
+    },
+    {
+      "code": "VVMP_TIMELINE_REVERSED_RANGE",
+      "family": "VVMP_TIMELINE_*",
+      "summary": "A timeline segment ended before or at its start."
+    },
+    {
+      "code": "VVMP_TIMELINE_MISSING_PROVENANCE_REF",
+      "family": "VVMP_TIMELINE_*",
+      "summary": "A timeline segment had no provenance reference."
+    },
+    {
+      "code": "VVMP_EXTENSION_UNKNOWN_CRITICAL",
+      "family": "VVMP_EXTENSION_*",
+      "summary": "A critical extension was unsupported."
+    },
+    {
+      "code": "VVMP_PROFILE_MISSING_TRUST_CODE",
+      "family": "VVMP_PROFILE_*",
+      "summary": "A profile requiring a trust code was missing one."
+    },
+    {
+      "code": "VVMP_SIGNATURE_REQUIRED",
+      "family": "VVMP_SIGNATURE_*",
+      "summary": "An embedded-provenance manifest required at least one signature record."
+    },
+    {
+      "code": "VVMP_SIGNATURE_MISSING_FIELD",
+      "family": "VVMP_SIGNATURE_*",
+      "summary": "A signature record was missing a required field."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "self-signed-default",
+  "found": true,
+  "embedded": true,
+  "validationState": "Invalid",
+  "verificationSummary": {
+    "manifest_state": "found",
+    "content_binding_state": "valid",
+    "signature_state": "invalid",
+    "trust_state": "untrusted",
+    "overall_state": "content_bound_but_signature_invalid"
+  },
+  "requiredSuccessCodes": [
+    "assertion.dataHash.match"
+  ],
+  "requiredFailureCodes": [
+    "signingCredential.untrusted",
+    "claimSignature.mismatch"
+  ]
+}

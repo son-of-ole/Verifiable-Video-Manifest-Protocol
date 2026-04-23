@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vvmp.org/schemas/vvmp-event-envelope.v1.json",
+  "title": "VVMP Event Envelope v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "event_version",
+    "event_id",
+    "session_id",
+    "kind",
+    "recorded_at",
+    "order",
+    "data"
+  ],
+  "properties": {
+    "event_version": {
+      "type": "string",
+      "const": "1.0.0-draft"
+    },
+    "event_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "session_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "source",
+        "prompt",
+        "tool",
+        "asset",
+        "generation",
+        "segment",
+        "edit",
+        "guardrail",
+        "rights",
+        "render",
+        "publication"
+      ]
+    },
+    "recorded_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "order": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "idempotency_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "data": {
+      "type": "object"
+    }
+  }
+}
