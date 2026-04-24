@@ -48,6 +48,7 @@
     "smoke:c2pa-trust-program": "node scripts/smoke-c2pa-trust-program.mjs",
     "smoke:trustmark": "node scripts/smoke-trustmark-cli.mjs",
     "pack:packages": "npm run build && node scripts/verify-package-install.mjs --pack-only",
+    "publish:packages": "node scripts/publish-packages.mjs",
     "verify:package-install": "npm run build && node scripts/verify-package-install.mjs",
     "verify:e2e": "npm run conformance && npm run build && npm run smoke:schema && npm run smoke:policy && npm run smoke:registry && npm run smoke:registry-client && npm run smoke:registry-cli && npm run smoke:capture && npm run smoke:example && npm run smoke:recovery && npm run smoke:c2pa && npm run smoke:c2pa-matrix && npm run smoke:c2pa-trust-program && npm run smoke:trustmark && npm run test:viewer:e2e"
   },

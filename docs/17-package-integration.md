@@ -132,13 +132,35 @@ Set `VVMP_KEEP_PACKAGE_CHECK=1` if you want the temporary package-check workspac
 
 ## Publishing
 
-When npm authentication and scope ownership are ready:
+The repository includes two publish paths:
 
 ```sh
-npm publish --workspaces --access public
+npm run publish:packages
 ```
 
-The apps under `apps/*` remain private deployable reference applications. Publish only the `packages/*` workspaces as reusable integration units.
+That script publishes only the reusable `packages/*` workspaces and skips any package version that is already present on npm. The apps under `apps/*` remain private deployable reference applications.
+
+To validate the publish package set without uploading anything:
+
+```sh
+node scripts/publish-packages.mjs --dry-run
+```
+
+For GitHub Actions trusted publishing, this repo includes `.github/workflows/publish.yml`. Configure each package on npm with:
+
+- Organization or user: `son-of-ole`
+- Repository: `Verifiable-Video-Manifest-Protocol`
+- Workflow filename: `publish.yml`
+
+The workflow uses GitHub OIDC with `id-token: write`, runs the fresh-project package install smoke test, and then publishes the reusable workspaces. npm automatically attaches provenance for public packages published from a public repository through trusted publishing.
+
+For a local first publish, log in with an npm account that can create or publish under `@vvmp`, then run:
+
+```sh
+npm login
+npm run verify:package-install
+npm run publish:packages
+```
 
 ## Language-Neutral Integration
 
