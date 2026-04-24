@@ -69,6 +69,7 @@ For any supported video, VVMP should help answer:
 - [Error catalog](docs/14-error-catalog.md)
 - [CLI and C2PA prototype](docs/15-cli-and-c2pa-prototype.md)
 - [Real C2PA integration](docs/16-real-c2pa-integration.md)
+- [Package integration guide](docs/17-package-integration.md)
 
 ## Examples
 
@@ -104,6 +105,24 @@ The reference `@vvmp/trust-schema` package now also ships:
 
 That package is intended to make the protocol artifacts easier to consume without requiring callers to know the repo layout.
 
+## Package Consumption
+
+The reusable TypeScript/JavaScript libraries under `packages/*` are configured as publishable npm packages. The monorepo root remains private because it contains reference apps, fixtures, and verification infrastructure.
+
+The main install surfaces are:
+
+- `@vvmp/trust-core` for manifest validation, canonicalization, summaries, and recovery comparison
+- `@vvmp/trust-schema` for packaged schemas, examples, registries, and schema validation helpers
+- `@vvmp/trust-capture-sdk` for event-first capture and manifest assembly
+- `@vvmp/policy-pack-sdk` for domain-specific policy packs
+- `@vvmp/trust-registry` and `@vvmp/trust-registry-client` for local and remote registry integration
+- `@vvmp/trust-c2pa-adapter` for C2PA export, read, trust-profile, and trustmark helpers
+- `@vvmp/trust-cli` for the `trust` command
+
+Run `npm run verify:package-install` before publishing or embedding. It builds the repo, packs the reusable workspaces, installs them into a fresh temporary npm project, imports every public package, reads packaged schema artifacts, constructs a capture session, constructs a file registry, and verifies that the installed `trust` CLI resolves.
+
+See [Package integration guide](docs/17-package-integration.md) for install examples, package roles, and publishing notes.
+
 ## Current Working Surface
 
 The repository now includes a first working reference stack:
@@ -127,6 +146,7 @@ The repository now includes a first working reference stack:
 - optional registry-backed recovery hooks for watermark and fingerprint locators
 - a reference PNG trustmark recovery lane with model caching, locator-bit generation, encode/decode, and registry-backed watermark resolution
 - a GitHub Actions CI workflow that runs the repository verification contract
+- publish-ready package metadata and a fresh-project package install smoke test
 
 ## Current CLI Surface
 

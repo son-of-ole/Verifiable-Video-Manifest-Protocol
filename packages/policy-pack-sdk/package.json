@@ -1,15 +1,47 @@
 {
   "name": "@vvmp/policy-pack-sdk",
   "version": "0.1.0",
-  "private": true,
+  "description": "SDK for defining and executing VVMP policy packs against manifests and provenance targets.",
+  "license": "Apache-2.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
   "files": [
     "dist"
   ],
+  "sideEffects": false,
   "scripts": {
-    "build": "tsc -p tsconfig.json"
+    "build": "tsc -p tsconfig.json",
+    "prepack": "npm run build"
   },
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/son-of-ole/Verifiable-Video-Manifest-Protocol.git",
+    "directory": "packages/policy-pack-sdk"
+  },
+  "bugs": {
+    "url": "https://github.com/son-of-ole/Verifiable-Video-Manifest-Protocol/issues"
+  },
+  "homepage": "https://github.com/son-of-ole/Verifiable-Video-Manifest-Protocol#readme",
+  "keywords": [
+    "vvmp",
+    "policy",
+    "guardrails",
+    "provenance",
+    "sdk"
+  ],
   "dependencies": {
     "@vvmp/trust-core": "0.1.0"
   }

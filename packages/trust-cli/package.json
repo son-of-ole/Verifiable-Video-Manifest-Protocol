@@ -1,7 +1,8 @@
 {
   "name": "@vvmp/trust-cli",
   "version": "0.1.0",
-  "private": true,
+  "description": "Command-line tools for validating, summarizing, publishing, recovering, signing, and verifying VVMP manifests.",
+  "license": "Apache-2.0",
   "main": "dist/cli.js",
   "types": "dist/cli.d.ts",
   "bin": {
@@ -11,8 +12,31 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.json"
+    "build": "tsc -p tsconfig.json",
+    "prepack": "npm run build"
   },
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/son-of-ole/Verifiable-Video-Manifest-Protocol.git",
+    "directory": "packages/trust-cli"
+  },
+  "bugs": {
+    "url": "https://github.com/son-of-ole/Verifiable-Video-Manifest-Protocol/issues"
+  },
+  "homepage": "https://github.com/son-of-ole/Verifiable-Video-Manifest-Protocol#readme",
+  "keywords": [
+    "vvmp",
+    "cli",
+    "c2pa",
+    "video",
+    "provenance"
+  ],
   "dependencies": {
     "@vvmp/trust-c2pa-adapter": "0.1.0",
     "@vvmp/trust-core": "0.1.0",

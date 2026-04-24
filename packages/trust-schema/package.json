@@ -1,9 +1,21 @@
 {
   "name": "@vvmp/trust-schema",
   "version": "0.1.0",
-  "private": true,
+  "description": "Packaged VVMP schemas, JSON-LD context, registries, examples, and schema validation helpers.",
+  "license": "Apache-2.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./schemas/*": "./schemas/*",
+    "./contexts/*": "./contexts/*",
+    "./examples/*": "./examples/*",
+    "./registries/*": "./registries/*"
+  },
   "files": [
     "dist",
     "schemas",
@@ -11,9 +23,33 @@
     "examples",
     "registries"
   ],
+  "sideEffects": false,
   "scripts": {
-    "build": "tsc -p tsconfig.json"
+    "build": "tsc -p tsconfig.json",
+    "prepack": "npm run build"
   },
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/son-of-ole/Verifiable-Video-Manifest-Protocol.git",
+    "directory": "packages/trust-schema"
+  },
+  "bugs": {
+    "url": "https://github.com/son-of-ole/Verifiable-Video-Manifest-Protocol/issues"
+  },
+  "homepage": "https://github.com/son-of-ole/Verifiable-Video-Manifest-Protocol#readme",
+  "keywords": [
+    "vvmp",
+    "json-schema",
+    "json-ld",
+    "video",
+    "provenance"
+  ],
   "dependencies": {
     "@vvmp/trust-core": "0.1.0"
   }

@@ -2,6 +2,16 @@
   "name": "vvmp",
   "private": true,
   "version": "0.1.0",
+  "description": "Reference implementation and package workspace for the Verifiable Video Manifest Protocol.",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/son-of-ole/Verifiable-Video-Manifest-Protocol.git"
+  },
+  "bugs": {
+    "url": "https://github.com/son-of-ole/Verifiable-Video-Manifest-Protocol/issues"
+  },
+  "homepage": "https://github.com/son-of-ole/Verifiable-Video-Manifest-Protocol#readme",
   "workspaces": [
     "apps/*",
     "packages/*"
@@ -37,6 +47,8 @@
     "smoke:c2pa-matrix": "node scripts/smoke-c2pa-verification-matrix.mjs",
     "smoke:c2pa-trust-program": "node scripts/smoke-c2pa-trust-program.mjs",
     "smoke:trustmark": "node scripts/smoke-trustmark-cli.mjs",
+    "pack:packages": "npm run build && node scripts/verify-package-install.mjs --pack-only",
+    "verify:package-install": "npm run build && node scripts/verify-package-install.mjs",
     "verify:e2e": "npm run conformance && npm run build && npm run smoke:schema && npm run smoke:policy && npm run smoke:registry && npm run smoke:registry-client && npm run smoke:registry-cli && npm run smoke:capture && npm run smoke:example && npm run smoke:recovery && npm run smoke:c2pa && npm run smoke:c2pa-matrix && npm run smoke:c2pa-trust-program && npm run smoke:trustmark && npm run test:viewer:e2e"
   },
   "devDependencies": {

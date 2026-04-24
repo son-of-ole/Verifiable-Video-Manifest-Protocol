@@ -1,15 +1,47 @@
 {
   "name": "@vvmp/trust-registry-client",
   "version": "0.1.0",
-  "private": true,
+  "description": "HTTP client for VVMP-compatible registry APIs.",
+  "license": "Apache-2.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
   "files": [
     "dist"
   ],
+  "sideEffects": false,
   "scripts": {
-    "build": "tsc -p tsconfig.json"
+    "build": "tsc -p tsconfig.json",
+    "prepack": "npm run build"
   },
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/son-of-ole/Verifiable-Video-Manifest-Protocol.git",
+    "directory": "packages/trust-registry-client"
+  },
+  "bugs": {
+    "url": "https://github.com/son-of-ole/Verifiable-Video-Manifest-Protocol/issues"
+  },
+  "homepage": "https://github.com/son-of-ole/Verifiable-Video-Manifest-Protocol#readme",
+  "keywords": [
+    "vvmp",
+    "registry",
+    "client",
+    "api",
+    "provenance"
+  ],
   "dependencies": {
     "@vvmp/trust-registry": "0.1.0"
   }
