@@ -28,7 +28,7 @@ const manifest = withManifestDefaults({
     final_asset: {
       format: "video/mp4",
       duration_seconds: 30,
-      sha256: "sha256:replace-with-real-digest"
+      sha256: "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
     }
   },
   creation: {
@@ -50,6 +50,8 @@ const signed = appendSignature(manifest, {
 
 `summarizeManifest()` and `deriveTrustStates()` assume `validateManifest(...).valid === true`. Use `summarizeManifestSafe()` and `deriveTrustStatesSafe()` when consuming incomplete or user-authored manifests.
 
-Timeline segments must reference at least one of `source_ids`, `prompt_ids`, or `generation_event_ids`. `visibility` is intentionally a string in `trust-core`; integrations may pass product values such as `unlisted`, but should document how those map to public trust-page behavior. Pre-render workflows should keep a draft manifest and replace `video.final_asset.sha256` with the final digest before publishing a production trust page.
+Timeline segments must reference at least one of `source_ids`, `prompt_ids`, or `generation_event_ids`. `visibility` is intentionally a string in `trust-core`; integrations may pass product values such as `unlisted`, but should document how those map to public trust-page behavior.
+
+Use `validateManifest(manifest, { profile: "draft" })` while a render is still pending. Draft validation allows an empty or omitted `video.final_asset.sha256`; `validateManifest(manifest, { profile: "production" })` requires a real 64-character SHA-256 digest, optionally prefixed with `sha256:`.
 
 See the root repository package integration guide for the full package map.

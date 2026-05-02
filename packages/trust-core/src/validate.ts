@@ -3,6 +3,7 @@ import type {
   ProfileSupport,
   TimelineSegment,
   TrustStateSummary,
+  ValidateManifestOptions,
   ValidationIssue,
   ValidationResult,
   VvmpManifest
@@ -18,8 +19,27 @@ function isNonEmptyString(value: unknown): value is string {
   return typeof value === "string" && value.length > 0;
 }
 
+function isSha256Digest(value: unknown): value is string {
+  return typeof value === "string" && /^(?:sha256:)?[a-fA-F0-9]{64}$/.test(value);
+}
+
 function pushIssue(issues: ValidationIssue[], code: string, path: string, message: string) {
   issues.push({ code, path, message });
+}
+
+function resolveValidationProfile(
+  manifest: Record<string, unknown>,
+  options: ValidateManifestOptions | undefined
+): "draft" | "production" {
+  if (options?.profile === "draft" || options?.profile === "production") {
+    return options.profile;
+  }
+
+  const publication = isObject(manifest.publication) ? manifest.publication : {};
+  const manifestVersion = typeof manifest.manifest_version === "string" ? manifest.manifest_version : "";
+  return publication.status === "draft" || manifestVersion.includes("draft")
+    ? "draft"
+    : "production";
 }
 
 function hasTopLevelShape(manifest: unknown, issues: ValidationIssue[]): manifest is VvmpManifest {
@@ -63,7 +83,11 @@ function hasTopLevelShape(manifest: unknown, issues: ValidationIssue[]): manifes
   return true;
 }
 
-function validateVideo(video: unknown, issues: ValidationIssue[]) {
+function validateVideo(
+  video: unknown,
+  issues: ValidationIssue[],
+  profile: "draft" | "production"
+) {
   if (!isObject(video)) {
     pushIssue(issues, "VVMP_SCHEMA_TYPE", "video", "video must be an object.");
     return;
@@ -82,12 +106,14 @@ function validateVideo(video: unknown, issues: ValidationIssue[]) {
   }
 
   if (!isObject(video.final_asset)) {
-    pushIssue(
-      issues,
-      "VVMP_SCHEMA_REQUIRED_FIELD",
-      "video.final_asset",
-      "The field video.final_asset is required."
-    );
+    if (profile === "production") {
+      pushIssue(
+        issues,
+        "VVMP_SCHEMA_REQUIRED_FIELD",
+        "video.final_asset",
+        "The field video.final_asset is required for production manifests."
+      );
+    }
     return;
   }
 
@@ -108,11 +134,20 @@ function validateVideo(video: unknown, issues: ValidationIssue[]) {
     );
   }
   if (!isNonEmptyString(video.final_asset.sha256)) {
+    if (profile === "production") {
+      pushIssue(
+        issues,
+        "VVMP_SCHEMA_REQUIRED_FIELD",
+        "video.final_asset.sha256",
+        "The field video.final_asset.sha256 is required for production manifests."
+      );
+    }
+  } else if (profile === "production" && !isSha256Digest(video.final_asset.sha256)) {
     pushIssue(
       issues,
-      "VVMP_SCHEMA_REQUIRED_FIELD",
+      "VVMP_FINAL_ASSET_INVALID_SHA256",
       "video.final_asset.sha256",
-      "The field video.final_asset.sha256 is required."
+      "The field video.final_asset.sha256 must be a 64-character hex SHA-256 digest, optionally prefixed with sha256:."
     );
   }
 }
@@ -513,7 +548,10 @@ export function deriveTrustStatesSafe(manifest: unknown): TrustStateSummary | nu
   return validation.trustStates;
 }
 
-export function validateManifest(manifest: unknown): ValidationResult {
+export function validateManifest(
+  manifest: unknown,
+  options: ValidateManifestOptions = {}
+): ValidationResult {
   const issues: ValidationIssue[] = [];
 
   const hasShape = hasTopLevelShape(manifest, issues);
@@ -537,7 +575,9 @@ export function validateManifest(manifest: unknown): ValidationResult {
     };
   }
 
-  validateVideo(manifest.video, issues);
+  const profile = resolveValidationProfile(manifest, options);
+
+  validateVideo(manifest.video, issues, profile);
   validateCreation(manifest.creation, issues);
   validateArrayObjects(manifest.sources, "sources", ["source_id", "source_type", "visibility"], issues);
   validateArrayObjects(manifest.prompts, "prompts", ["prompt_id", "prompt_type", "visibility"], issues);

@@ -37,8 +37,7 @@
         "title",
         "created_at",
         "creator_type",
-        "visibility",
-        "final_asset"
+        "visibility"
       ],
       "properties": {
         "video_id": {
@@ -73,11 +72,138 @@
               "type": "number"
             },
             "sha256": {
-              "type": "string"
+              "type": "string",
+              "pattern": "^(sha256:)?[A-Fa-f0-9]{64}$"
             }
           }
         }
       }
+    },
+    "creation": {
+      "type": "object",
+      "required": ["workflow", "human_oversight_level"],
+      "properties": {
+        "workflow": {
+          "type": "string"
+        },
+        "human_oversight_level": {
+          "type": "string"
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source_id", "source_type", "visibility"],
+        "properties": {
+          "source_id": {
+            "type": "string"
+          },
+          "source_type": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "canonical_ref": {
+            "type": "string"
+          },
+          "display_text": {
+            "type": "string"
+          },
+          "visibility": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "prompts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["prompt_id", "prompt_type", "visibility"],
+        "properties": {
+          "prompt_id": {
+            "type": "string"
+          },
+          "prompt_type": {
+            "type": "string"
+          },
+          "visibility": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "tools": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["tool_id", "tool_type", "purpose"],
+        "properties": {
+          "tool_id": {
+            "type": "string"
+          },
+          "tool_type": {
+            "type": "string"
+          },
+          "purpose": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "assets": {
+      "type": "array"
+    },
+    "timeline": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["segment_id", "time_range", "claim_type"],
+        "properties": {
+          "segment_id": {
+            "type": "string"
+          },
+          "time_range": {
+            "type": "object",
+            "required": ["start", "end"],
+            "properties": {
+              "start": {
+                "type": "number"
+              },
+              "end": {
+                "type": "number"
+              }
+            }
+          },
+          "claim_type": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "edits": {
+      "type": "array"
+    },
+    "guardrails": {
+      "type": "array"
+    },
+    "rights": {
+      "type": "array"
+    },
+    "render": {
+      "type": "object"
+    },
+    "publication": {
+      "type": "object"
+    },
+    "redactions": {
+      "type": "array"
     },
     "signatures": {
       "type": "array",
@@ -102,6 +228,50 @@
           }
         }
       }
+    },
+    "links": {
+      "type": "object"
+    },
+    "extensions": {
+      "type": "array"
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "not": {
+          "anyOf": [
+            {
+              "properties": {
+                "manifest_version": {
+                  "type": "string",
+                  "pattern": "draft"
+                }
+              }
+            },
+            {
+              "properties": {
+                "publication": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "draft"
+                    }
+                  },
+                  "required": ["status"]
+                }
+              }
+            }
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "video": {
+            "required": ["final_asset"]
+          }
+        }
+      }
+    }
+  ]
 }

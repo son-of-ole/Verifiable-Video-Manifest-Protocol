@@ -89,7 +89,7 @@ export type VideoRecord = {
   creator_type: string;
   content_type?: string;
   visibility: string;
-  final_asset: FinalAsset;
+  final_asset?: FinalAsset;
 };
 
 export type VvmpVideo = VideoRecord;
@@ -304,4 +304,15 @@ export type ValidationResult = {
   issues: ValidationIssue[];
   profiles: ProfileSupport;
   trustStates: TrustStateSummary;
+};
+
+export type ManifestValidationProfile = "auto" | "draft" | "production";
+
+export type ValidateManifestOptions = {
+  /**
+   * `production` requires a real final asset sha256 digest.
+   * `draft` allows pre-render manifests to omit the digest.
+   * `auto` treats publication.status=draft or manifest_version containing draft as draft.
+   */
+  profile?: ManifestValidationProfile;
 };

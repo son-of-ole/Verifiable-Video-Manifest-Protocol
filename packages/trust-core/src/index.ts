@@ -14,6 +14,8 @@ export type {
   TimelineSegment,
   ToolRecord,
   TrustStateSummary,
+  ManifestValidationProfile,
+  ValidateManifestOptions,
   ValidationIssue,
   ValidationResult,
   VideoRecord,

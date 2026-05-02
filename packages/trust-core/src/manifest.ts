@@ -85,6 +85,7 @@ function mergeObject<T extends Record<string, unknown>>(base: T, input: unknown)
 
 export function withManifestDefaults(input: ManifestDefaultsInput = {}): VvmpManifest {
   const manifest = defaultManifest();
+  const finalAsset = manifest.video.final_asset ?? defaultFinalAsset();
 
   const withTopLevel = {
     ...manifest,
@@ -92,7 +93,7 @@ export function withManifestDefaults(input: ManifestDefaultsInput = {}): VvmpMan
     video: {
       ...manifest.video,
       ...clone(input.video ?? {}),
-      final_asset: mergeObject(manifest.video.final_asset, input.video?.final_asset)
+      final_asset: mergeObject(finalAsset, input.video?.final_asset ?? {})
     },
     creation: mergeObject(manifest.creation, input.creation),
     sources: clone(input.sources ?? manifest.sources),

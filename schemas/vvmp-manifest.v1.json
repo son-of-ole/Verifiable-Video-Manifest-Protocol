@@ -37,8 +37,7 @@
         "title",
         "created_at",
         "creator_type",
-        "visibility",
-        "final_asset"
+        "visibility"
       ],
       "properties": {
         "video_id": {
@@ -73,7 +72,8 @@
               "type": "number"
             },
             "sha256": {
-              "type": "string"
+              "type": "string",
+              "pattern": "^(sha256:)?[A-Fa-f0-9]{64}$"
             }
           }
         }
@@ -235,5 +235,43 @@
     "extensions": {
       "type": "array"
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "not": {
+          "anyOf": [
+            {
+              "properties": {
+                "manifest_version": {
+                  "type": "string",
+                  "pattern": "draft"
+                }
+              }
+            },
+            {
+              "properties": {
+                "publication": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "draft"
+                    }
+                  },
+                  "required": ["status"]
+                }
+              }
+            }
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "video": {
+            "required": ["final_asset"]
+          }
+        }
+      }
+    }
+  ]
 }

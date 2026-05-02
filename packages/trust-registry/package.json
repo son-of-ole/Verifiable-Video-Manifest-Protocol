@@ -1,6 +1,6 @@
 {
   "name": "@vvmp/trust-registry",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "File-backed reference VVMP registry implementation for manifests, trust codes, assets, and recovery locators.",
   "license": "Apache-2.0",
   "main": "dist/index.js",
@@ -44,7 +44,7 @@
     "provenance"
   ],
   "dependencies": {
-    "@vvmp/policy-pack-sdk": "0.1.1",
-    "@vvmp/trust-core": "0.1.1"
+    "@vvmp/policy-pack-sdk": "0.1.2",
+    "@vvmp/trust-core": "0.1.2"
   }
 }

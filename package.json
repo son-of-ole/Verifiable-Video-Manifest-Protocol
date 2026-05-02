@@ -1,7 +1,7 @@
 {
   "name": "vvmp",
   "private": true,
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Reference implementation and package workspace for the Verifiable Video Manifest Protocol.",
   "license": "Apache-2.0",
   "repository": {

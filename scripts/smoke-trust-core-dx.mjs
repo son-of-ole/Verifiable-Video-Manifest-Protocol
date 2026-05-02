@@ -55,6 +55,51 @@ const manifest = trustCore.withManifestDefaults({
 
 const validation = trustCore.validateManifest(manifest);
 assert(validation.valid, `Manifest with defaults should validate: ${JSON.stringify(validation.issues)}`);
+
+const draftManifest = trustCore.withManifestDefaults({
+  ...manifest,
+  video: {
+    ...manifest.video,
+    final_asset: {
+      format: "video/mp4",
+      duration_seconds: 1,
+      sha256: ""
+    }
+  },
+  publication: {
+    status: "draft"
+  }
+});
+assert(
+  trustCore.validateManifest(draftManifest, { profile: "draft" }).valid,
+  "Draft profile should allow a pre-render manifest without a final sha256."
+);
+
+const invalidProduction = trustCore.validateManifest(draftManifest, { profile: "production" });
+assert(
+  invalidProduction.issues.some((issue) => issue.code === "VVMP_SCHEMA_REQUIRED_FIELD" && issue.path === "video.final_asset.sha256"),
+  "Production profile should reject missing final asset sha256."
+);
+
+const placeholderProduction = trustCore.validateManifest(
+  trustCore.withManifestDefaults({
+    ...manifest,
+    video: {
+      ...manifest.video,
+      final_asset: {
+        format: "video/mp4",
+        duration_seconds: 1,
+        sha256: "sha256:not-a-real-hash"
+      }
+    }
+  }),
+  { profile: "production" }
+);
+assert(
+  placeholderProduction.issues.some((issue) => issue.code === "VVMP_FINAL_ASSET_INVALID_SHA256"),
+  "Production profile should reject placeholder final asset hashes."
+);
+
 assert(trustCore.summarizeManifestSafe(manifest)?.manifestId === manifest.manifest_id, "Safe summary should return a summary for valid manifests.");
 assert(trustCore.summarizeManifestSafe({}) === null, "Safe summary should return null for invalid manifests.");
 assert(trustCore.deriveTrustStatesSafe({}) === null, "Safe trust-state derivation should return null for invalid manifests.");

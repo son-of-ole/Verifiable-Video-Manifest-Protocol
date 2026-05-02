@@ -1,6 +1,12 @@
 # Changelog
 
-## 0.1.1 - Unreleased
+## 0.1.2 - 2026-05-02
+
+- Add `validateManifest(manifest, { profile: "draft" | "production" | "auto" })` so pre-render manifests can validate before the final asset hash exists.
+- Tighten production validation for `video.final_asset.sha256`; production manifests now require a real 64-character SHA-256 digest, with an optional `sha256:` prefix.
+- Update the packaged manifest schemas and consumer smoke tests to cover draft and production validation behavior.
+
+## 0.1.1 - 2026-05-02
 
 - Add `VVMP_CORE_VERSION` and expose `@vvmp/trust-core/package.json` for programmatic version reporting.
 - Add `createEmptyManifest()` and `withManifestDefaults()` to fill structurally required arrays and objects for integrators.

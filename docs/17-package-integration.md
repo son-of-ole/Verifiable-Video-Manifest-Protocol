@@ -70,7 +70,7 @@ const manifest = withManifestDefaults({
     final_asset: {
       format: "video/mp4",
       duration_seconds: 30,
-      sha256: "sha256:replace-with-real-digest"
+      sha256: "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
     }
   },
   creation: {
@@ -99,7 +99,7 @@ Use `require("@vvmp/trust-core/package.json")` if you specifically need package 
 - `withManifestDefaults()` and `createEmptyManifest()` fill the structurally required empty arrays and objects: `edits`, `guardrails`, `rights`, `redactions`, `signatures`, `extensions`, `render`, `publication`, and `links`.
 - Timeline segments must reference at least one provenance handle: `source_ids`, `prompt_ids`, or `generation_event_ids`. If a scene has no source or prompt, add a generation event identifier from the pipeline that produced that scene.
 - `visibility` is intentionally represented as a string in `trust-core`. The common public trust-page mapping is `public` for public or unlisted trust pages and `private` for records that should not be exposed. If your product has `unlisted`, pass it through or map it explicitly at your boundary.
-- `video.final_asset.sha256` remains required for production manifests. Pre-render workflows should keep the manifest in draft state, then replace the digest with the final rendered asset hash before publishing the trust page.
+- Use `validateManifest(manifest, { profile: "draft" })` for pre-render manifests. Draft validation allows an empty or omitted `video.final_asset.sha256`; `validateManifest(manifest, { profile: "production" })` requires a real 64-character SHA-256 digest, optionally prefixed with `sha256:`.
 - `summarizeManifest()` and `deriveTrustStates()` assume a valid manifest. Use `summarizeManifestSafe()` and `deriveTrustStatesSafe()` for user-authored, partial, or pre-validation data.
 - `appendSignature()` stores signature metadata in `manifest.signatures[]`; `verifySignatures()` lets integrations plug in their own HMAC, KMS, C2PA, or detached-signature verifier without writing custom manifest mutation code.
 
@@ -138,7 +138,7 @@ const manifest = trust.buildManifest({
     final_asset: {
       format: "video/mp4",
       duration_seconds: 30,
-      sha256: "sha256:replace-with-real-digest"
+      sha256: "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
     }
   },
   creation: {

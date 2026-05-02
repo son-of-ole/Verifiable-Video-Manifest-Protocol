@@ -87,6 +87,55 @@ const c2pa = require("@vvmp/trust-c2pa-adapter");
 
   const emptyManifest = core.createEmptyManifest({ manifest_id: "urn:vvmp:manifest:consumer-smoke" });
   assert.equal(emptyManifest.edits.length, 0);
+  const draftValidation = core.validateManifest(
+    core.withManifestDefaults({
+      manifest_id: "urn:vvmp:manifest:consumer-smoke-draft",
+      video: {
+        video_id: "consumer-smoke-video",
+        title: "Consumer Smoke Draft",
+        created_at: "2026-05-02T00:00:00Z",
+        creator_type: "user_assisted_ai",
+        visibility: "private",
+        final_asset: {
+          format: "video/mp4",
+          duration_seconds: 1,
+          sha256: ""
+        }
+      },
+      creation: {
+        workflow: "consumer-smoke",
+        human_oversight_level: "human_validated"
+      }
+    }),
+    { profile: "draft" }
+  );
+  assert.equal(draftValidation.valid, true);
+  const productionValidation = core.validateManifest(
+    core.withManifestDefaults({
+      manifest_id: "urn:vvmp:manifest:consumer-smoke-production",
+      video: {
+        video_id: "consumer-smoke-video",
+        title: "Consumer Smoke Production",
+        created_at: "2026-05-02T00:00:00Z",
+        creator_type: "user_assisted_ai",
+        visibility: "public",
+        final_asset: {
+          format: "video/mp4",
+          duration_seconds: 1,
+          sha256: "sha256:not-real"
+        }
+      },
+      creation: {
+        workflow: "consumer-smoke",
+        human_oversight_level: "human_validated"
+      }
+    }),
+    { profile: "production" }
+  );
+  assert.equal(
+    productionValidation.issues.some((issue) => issue.code === "VVMP_FINAL_ASSET_INVALID_SHA256"),
+    true
+  );
   const signedManifest = core.appendSignature(emptyManifest, {
     signer: "consumer-smoke",
     value: "test-signature"

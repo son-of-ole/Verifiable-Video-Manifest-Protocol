@@ -1,6 +1,6 @@
 {
   "name": "@vvmp/trust-capture-sdk",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Event-first SDK for capturing generation, edit, source, guardrail, and render provenance into VVMP manifests.",
   "license": "Apache-2.0",
   "main": "dist/index.js",
@@ -44,7 +44,7 @@
     "capture"
   ],
   "dependencies": {
-    "@vvmp/policy-pack-sdk": "0.1.1",
-    "@vvmp/trust-core": "0.1.1"
+    "@vvmp/policy-pack-sdk": "0.1.2",
+    "@vvmp/trust-core": "0.1.2"
   }
 }

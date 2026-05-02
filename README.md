@@ -30,7 +30,7 @@ const manifest = withManifestDefaults({
     final_asset: {
       format: "video/mp4",
       duration_seconds: 30,
-      sha256: "sha256:replace-with-real-digest"
+      sha256: "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
     }
   },
   creation: {
@@ -43,6 +43,14 @@ console.log(`vvmp-trust-core@${VVMP_CORE_VERSION}`, validateManifest(manifest));
 ```
 
 Install `@vvmp/trust-schema` only when your app needs packaged JSON Schemas, JSON-LD context, examples, registries, or schema-tooling artifacts. If you only need runtime semantic validation, canonical JSON, summaries, defaults, and signature helpers, `@vvmp/trust-core` is enough.
+
+Pre-render pipelines can validate draft manifests before the final video hash exists:
+
+```ts
+validateManifest(manifest, { profile: "draft" });
+```
+
+Before publishing a production trust page, use `validateManifest(manifest, { profile: "production" })`; production validation requires a real 64-character SHA-256 digest, optionally prefixed with `sha256:`.
 
 VVMP is designed to build on top of C2PA rather than compete with it:
 

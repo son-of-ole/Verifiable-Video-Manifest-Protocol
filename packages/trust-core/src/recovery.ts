@@ -212,6 +212,11 @@ export function buildRecoveryCardSummary(
     explicitTrustPage ??
     publicationTrustPage ??
     (baseUrl && trustCode ? `${baseUrl}/v/${encodeURIComponent(trustCode)}` : null);
+  const finalAsset = manifest.video.final_asset;
+
+  if (!finalAsset) {
+    throw new Error("Recovery summaries require video.final_asset. Use production manifests after render.");
+  }
 
   return {
     manifest_id: manifest.manifest_id,
@@ -220,7 +225,7 @@ export function buildRecoveryCardSummary(
     trust_page_url: trustPageUrl,
     qr_target_url: trustPageUrl,
     badge_text: trustCode ? `Trust: ${trustCode}` : "Trust code unavailable",
-    final_asset: manifest.video.final_asset,
+    final_asset: finalAsset,
     recovery_capable: Boolean(trustCode || trustPageUrl)
   };
 }
@@ -259,14 +264,14 @@ export function compareRenditionObservation(
   );
 
   const assetHashMatch = isNonEmptyString(observation.asset.sha256)
-    ? observation.asset.sha256 === manifest.video.final_asset.sha256
+    ? observation.asset.sha256 === summary.final_asset.sha256
     : null;
   const formatMatch = isNonEmptyString(observation.asset.format)
-    ? observation.asset.format === manifest.video.final_asset.format
+    ? observation.asset.format === summary.final_asset.format
     : null;
   const durationDeltaSeconds =
     typeof observation.asset.duration_seconds === "number"
-      ? Math.abs(observation.asset.duration_seconds - manifest.video.final_asset.duration_seconds)
+      ? Math.abs(observation.asset.duration_seconds - summary.final_asset.duration_seconds)
       : null;
   const durationMatch =
     durationDeltaSeconds === null ? null : durationDeltaSeconds <= durationToleranceSeconds;

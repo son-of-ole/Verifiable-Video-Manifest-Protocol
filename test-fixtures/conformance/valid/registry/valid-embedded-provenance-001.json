@@ -12,7 +12,7 @@
     "final_asset": {
       "format": "video/mp4",
       "duration_seconds": 21.4,
-      "sha256": "sha256:demo-video-hash-4"
+      "sha256": "sha256:4444444444444444444444444444444444444444444444444444444444444444"
     }
   },
   "creation": {
@@ -65,7 +65,7 @@
   "rights": [],
   "render": {
     "engine": "ffmpeg",
-    "output_hash": "sha256:demo-video-hash-4"
+    "output_hash": "sha256:4444444444444444444444444444444444444444444444444444444444444444"
   },
   "publication": {
     "status": "published",

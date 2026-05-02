@@ -32,7 +32,7 @@ export function summarizeManifest(manifest: VvmpManifest): ManifestSummary {
     manifestId: manifest.manifest_id,
     title: manifest.video.title,
     trustCode: manifest.video.trust_code ?? null,
-    durationSeconds: manifest.video.final_asset.duration_seconds,
+    durationSeconds: manifest.video.final_asset?.duration_seconds ?? 0,
     sourceCount: manifest.sources.length,
     promptCount: manifest.prompts.length,
     toolCount: manifest.tools.length,
