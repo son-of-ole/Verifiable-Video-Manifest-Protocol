@@ -4,6 +4,46 @@ VVMP is an open-source provenance and trust layer for AI-generated and AI-assist
 
 Its purpose is not to judge whether a video is good, bad, true, official, or trustworthy in a moral sense. Its purpose is to make a video's creation record inspectable, portable, cryptographically verifiable, and useful to both humans and software.
 
+## Install The SDK
+
+For most JavaScript or TypeScript integrations, start with `@vvmp/trust-core`:
+
+```sh
+npm install @vvmp/trust-core
+```
+
+```ts
+import {
+  VVMP_CORE_VERSION,
+  validateManifest,
+  withManifestDefaults
+} from "@vvmp/trust-core";
+
+const manifest = withManifestDefaults({
+  manifest_id: "urn:vvmp:manifest:example",
+  video: {
+    video_id: "video_001",
+    title: "Example video",
+    created_at: new Date().toISOString(),
+    creator_type: "ai_assisted",
+    visibility: "public",
+    final_asset: {
+      format: "video/mp4",
+      duration_seconds: 30,
+      sha256: "sha256:replace-with-real-digest"
+    }
+  },
+  creation: {
+    workflow: "chat_to_video",
+    human_oversight_level: "human_reviewed"
+  }
+});
+
+console.log(`vvmp-trust-core@${VVMP_CORE_VERSION}`, validateManifest(manifest));
+```
+
+Install `@vvmp/trust-schema` only when your app needs packaged JSON Schemas, JSON-LD context, examples, registries, or schema-tooling artifacts. If you only need runtime semantic validation, canonical JSON, summaries, defaults, and signature helpers, `@vvmp/trust-core` is enough.
+
 VVMP is designed to build on top of C2PA rather than compete with it:
 
 - C2PA provides interoperable content provenance, manifests, assertions, claims, signatures, and content bindings.
@@ -70,6 +110,7 @@ For any supported video, VVMP should help answer:
 - [CLI and C2PA prototype](docs/15-cli-and-c2pa-prototype.md)
 - [Real C2PA integration](docs/16-real-c2pa-integration.md)
 - [Package integration guide](docs/17-package-integration.md)
+- [Changelog](CHANGELOG.md)
 
 ## Examples
 
@@ -147,6 +188,7 @@ The repository now includes a first working reference stack:
 - a reference PNG trustmark recovery lane with model caching, locator-bit generation, encode/decode, and registry-backed watermark resolution
 - a GitHub Actions CI workflow that runs the repository verification contract
 - publish-ready package metadata and a fresh-project package install smoke test
+- integrator-focused `trust-core` helpers for package version access, manifest defaults, safe summaries, field-level types, and manifest signature records
 
 ## Current CLI Surface
 

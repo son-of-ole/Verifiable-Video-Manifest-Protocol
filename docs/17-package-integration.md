@@ -22,7 +22,13 @@ The monorepo root stays private because it contains apps, fixtures, scripts, and
 
 ## Install
 
-After the packages are published, consumers can install only the pieces they need:
+Consumers should install only the pieces they need. Most app integrations start with runtime helpers only:
+
+```sh
+npm install @vvmp/trust-core
+```
+
+Install `@vvmp/trust-schema` when the app needs packaged JSON Schemas, JSON-LD context, examples, registries, or schema-tooling artifacts:
 
 ```sh
 npm install @vvmp/trust-core @vvmp/trust-schema
@@ -45,19 +51,57 @@ All packages currently target Node.js 20 or newer. The libraries are CommonJS bu
 ## Minimal Consumer Example
 
 ```ts
-import { validateManifest, summarizeManifest } from "@vvmp/trust-core";
-import { readManifestSchema } from "@vvmp/trust-schema";
+import {
+  VVMP_CORE_VERSION,
+  appendSignature,
+  summarizeManifestSafe,
+  validateManifest,
+  withManifestDefaults
+} from "@vvmp/trust-core";
 
-const schema = await readManifestSchema();
-console.log(schema.$id);
+const manifest = withManifestDefaults({
+  manifest_id: "urn:vvmp:manifest:example",
+  video: {
+    video_id: "video_001",
+    title: "Example video",
+    created_at: new Date().toISOString(),
+    creator_type: "ai_assisted",
+    visibility: "public",
+    final_asset: {
+      format: "video/mp4",
+      duration_seconds: 30,
+      sha256: "sha256:replace-with-real-digest"
+    }
+  },
+  creation: {
+    workflow: "chat_to_video",
+    human_oversight_level: "human_reviewed"
+  }
+});
 
 const validation = validateManifest(manifest);
 if (!validation.valid) {
   throw new Error(validation.issues.map((issue) => issue.code).join(", "));
 }
 
-console.log(summarizeManifest(manifest));
+const signed = appendSignature(manifest, {
+  signer: "example-service",
+  value: "external-signature-value"
+});
+
+console.log(`vvmp-trust-core@${VVMP_CORE_VERSION}`, summarizeManifestSafe(signed));
 ```
+
+Use `require("@vvmp/trust-core/package.json")` if you specifically need package metadata; the package also exports `VVMP_CORE_VERSION` for bundle-safe version reporting.
+
+## Integration Rules To Know
+
+- `withManifestDefaults()` and `createEmptyManifest()` fill the structurally required empty arrays and objects: `edits`, `guardrails`, `rights`, `redactions`, `signatures`, `extensions`, `render`, `publication`, and `links`.
+- Timeline segments must reference at least one provenance handle: `source_ids`, `prompt_ids`, or `generation_event_ids`. If a scene has no source or prompt, add a generation event identifier from the pipeline that produced that scene.
+- `visibility` is intentionally represented as a string in `trust-core`. The common public trust-page mapping is `public` for public or unlisted trust pages and `private` for records that should not be exposed. If your product has `unlisted`, pass it through or map it explicitly at your boundary.
+- `video.final_asset.sha256` remains required for production manifests. Pre-render workflows should keep the manifest in draft state, then replace the digest with the final rendered asset hash before publishing the trust page.
+- `summarizeManifest()` and `deriveTrustStates()` assume a valid manifest. Use `summarizeManifestSafe()` and `deriveTrustStatesSafe()` for user-authored, partial, or pre-validation data.
+- `appendSignature()` stores signature metadata in `manifest.signatures[]`; `verifySignatures()` lets integrations plug in their own HMAC, KMS, C2PA, or detached-signature verifier without writing custom manifest mutation code.
 
 ## Capture SDK Example
 

@@ -1,6 +1,6 @@
 {
   "name": "@vvmp/trust-viewer",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "build": "next build",
@@ -8,7 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@vvmp/trust-core": "0.1.0",
+    "@vvmp/trust-core": "0.1.1",
     "next": "16.2.4",
     "react": "19.2.5",
     "react-dom": "19.2.5"

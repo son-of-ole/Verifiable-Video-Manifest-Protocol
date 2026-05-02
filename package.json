@@ -1,7 +1,7 @@
 {
   "name": "vvmp",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Reference implementation and package workspace for the Verifiable Video Manifest Protocol.",
   "license": "Apache-2.0",
   "repository": {
@@ -35,6 +35,7 @@
     "conformance:py": "python3 scripts/run_conformance.py",
     "conformance:swift": "swift scripts/run_conformance.swift",
     "conformance": "npm run conformance:js && npm run conformance:py && npm run conformance:swift",
+    "smoke:core": "node scripts/smoke-trust-core-dx.mjs",
     "smoke:schema": "node scripts/smoke-trust-schema.mjs",
     "smoke:policy": "node scripts/smoke-policy-pack.mjs",
     "smoke:registry": "node scripts/smoke-registry.mjs",
@@ -50,7 +51,7 @@
     "pack:packages": "npm run build && node scripts/verify-package-install.mjs --pack-only",
     "publish:packages": "node scripts/publish-packages.mjs",
     "verify:package-install": "npm run build && node scripts/verify-package-install.mjs",
-    "verify:e2e": "npm run conformance && npm run build && npm run smoke:schema && npm run smoke:policy && npm run smoke:registry && npm run smoke:registry-client && npm run smoke:registry-cli && npm run smoke:capture && npm run smoke:example && npm run smoke:recovery && npm run smoke:c2pa && npm run smoke:c2pa-matrix && npm run smoke:c2pa-trust-program && npm run smoke:trustmark && npm run test:viewer:e2e"
+    "verify:e2e": "npm run conformance && npm run build && npm run smoke:core && npm run smoke:schema && npm run smoke:policy && npm run smoke:registry && npm run smoke:registry-client && npm run smoke:registry-cli && npm run smoke:capture && npm run smoke:example && npm run smoke:recovery && npm run smoke:c2pa && npm run smoke:c2pa-matrix && npm run smoke:c2pa-trust-program && npm run smoke:trustmark && npm run test:viewer:e2e"
   },
   "devDependencies": {
     "@playwright/test": "^1.59.1"

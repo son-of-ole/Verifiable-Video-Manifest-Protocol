@@ -1,6 +1,6 @@
 {
   "name": "@vvmp/trust-cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Command-line tools for validating, summarizing, publishing, recovering, signing, and verifying VVMP manifests.",
   "license": "Apache-2.0",
   "main": "dist/cli.js",
@@ -38,10 +38,10 @@
     "provenance"
   ],
   "dependencies": {
-    "@vvmp/trust-c2pa-adapter": "0.1.0",
-    "@vvmp/trust-core": "0.1.0",
-    "@vvmp/trust-registry": "0.1.0",
-    "@vvmp/trust-registry-client": "0.1.0",
+    "@vvmp/trust-c2pa-adapter": "0.1.1",
+    "@vvmp/trust-core": "0.1.1",
+    "@vvmp/trust-registry": "0.1.1",
+    "@vvmp/trust-registry-client": "0.1.1",
     "qrcode": "^1.5.4"
   },
   "devDependencies": {

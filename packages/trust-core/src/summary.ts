@@ -1,4 +1,5 @@
 import type { ManifestSummary, VvmpManifest } from "./types";
+import { validateManifest } from "./validate";
 
 function guessAiInvolvement(manifest: VvmpManifest): string {
   const toolTypes = new Set(manifest.tools.map((tool) => tool.tool_type));
@@ -43,3 +44,11 @@ export function summarizeManifest(manifest: VvmpManifest): ManifestSummary {
   };
 }
 
+export function summarizeManifestSafe(manifest: unknown): ManifestSummary | null {
+  const validation = validateManifest(manifest);
+  if (!validation.valid) {
+    return null;
+  }
+
+  return summarizeManifest(manifest as VvmpManifest);
+}

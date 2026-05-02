@@ -492,12 +492,25 @@ function deriveAiInvolvementState(manifest: VvmpManifest): string {
 }
 
 export function deriveTrustStates(manifest: VvmpManifest): TrustStateSummary {
+  const guardrails = Array.isArray(manifest.guardrails)
+    ? (manifest.guardrails as GuardrailRecord[])
+    : [];
+
   return {
     file_trust_state: deriveFileTrustState(manifest),
     provenance_coverage_state: deriveProvenanceCoverageState(manifest),
-    guardrail_state: deriveGuardrailState(manifest.guardrails as GuardrailRecord[]),
+    guardrail_state: deriveGuardrailState(guardrails),
     ai_involvement_state: deriveAiInvolvementState(manifest)
   };
+}
+
+export function deriveTrustStatesSafe(manifest: unknown): TrustStateSummary | null {
+  const validation = validateManifest(manifest);
+  if (!validation.valid) {
+    return null;
+  }
+
+  return validation.trustStates;
 }
 
 export function validateManifest(manifest: unknown): ValidationResult {

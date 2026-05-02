@@ -1,6 +1,6 @@
 {
   "name": "@vvmp/trust-schema",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Packaged VVMP schemas, JSON-LD context, registries, examples, and schema validation helpers.",
   "license": "Apache-2.0",
   "main": "dist/index.js",
@@ -11,6 +11,7 @@
       "require": "./dist/index.js",
       "default": "./dist/index.js"
     },
+    "./package.json": "./package.json",
     "./schemas/*": "./schemas/*",
     "./contexts/*": "./contexts/*",
     "./examples/*": "./examples/*",
@@ -51,6 +52,6 @@
     "provenance"
   ],
   "dependencies": {
-    "@vvmp/trust-core": "0.1.0"
+    "@vvmp/trust-core": "0.1.1"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@vvmp/trust-registry-client",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "HTTP client for VVMP-compatible registry APIs.",
   "license": "Apache-2.0",
   "main": "dist/index.js",
@@ -10,7 +10,8 @@
       "types": "./dist/index.d.ts",
       "require": "./dist/index.js",
       "default": "./dist/index.js"
-    }
+    },
+    "./package.json": "./package.json"
   },
   "files": [
     "dist"
@@ -43,6 +44,6 @@
     "provenance"
   ],
   "dependencies": {
-    "@vvmp/trust-registry": "0.1.0"
+    "@vvmp/trust-registry": "0.1.1"
   }
 }

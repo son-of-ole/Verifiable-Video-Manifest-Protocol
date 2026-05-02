@@ -66,6 +66,12 @@ const c2pa = require("@vvmp/trust-c2pa-adapter");
 (async () => {
   assert.equal(core.canonicalizeJson({ b: 1, a: 2 }), '{"a":2,"b":1}');
   assert.equal(typeof core.validateManifest, "function");
+  assert.match(core.VVMP_CORE_VERSION, /^0\\.1\\.\\d+$/);
+  assert.equal(typeof core.createEmptyManifest, "function");
+  assert.equal(typeof core.withManifestDefaults, "function");
+  assert.equal(typeof core.summarizeManifestSafe, "function");
+  assert.equal(typeof core.appendSignature, "function");
+  assert.equal(typeof core.verifySignatures, "function");
   assert.equal(typeof schema.readManifestSchema, "function");
   assert.equal(typeof policy.definePolicyPack, "function");
   assert.equal(typeof capture.createTrustSession, "function");
@@ -78,6 +84,18 @@ const c2pa = require("@vvmp/trust-c2pa-adapter");
 
   const session = capture.createTrustSession({ sessionId: "consumer-smoke" });
   assert.equal(session.getSnapshot().session_id, "consumer-smoke");
+
+  const emptyManifest = core.createEmptyManifest({ manifest_id: "urn:vvmp:manifest:consumer-smoke" });
+  assert.equal(emptyManifest.edits.length, 0);
+  const signedManifest = core.appendSignature(emptyManifest, {
+    signer: "consumer-smoke",
+    value: "test-signature"
+  });
+  const signatureVerification = await core.verifySignatures(signedManifest, () => true);
+  assert.equal(signatureVerification.valid, true);
+
+  const corePackage = require("@vvmp/trust-core/package.json");
+  assert.equal(corePackage.version, core.VVMP_CORE_VERSION);
 
   const fileRegistry = registry.createFileRegistry({
     rootDir: path.join(os.tmpdir(), "vvmp-package-consumer-registry")

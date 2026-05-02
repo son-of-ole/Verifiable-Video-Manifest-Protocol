@@ -1,6 +1,6 @@
 {
   "name": "@vvmp/policy-pack-sdk",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "SDK for defining and executing VVMP policy packs against manifests and provenance targets.",
   "license": "Apache-2.0",
   "main": "dist/index.js",
@@ -10,7 +10,8 @@
       "types": "./dist/index.d.ts",
       "require": "./dist/index.js",
       "default": "./dist/index.js"
-    }
+    },
+    "./package.json": "./package.json"
   },
   "files": [
     "dist"
@@ -43,6 +44,6 @@
     "sdk"
   ],
   "dependencies": {
-    "@vvmp/trust-core": "0.1.0"
+    "@vvmp/trust-core": "0.1.1"
   }
 }

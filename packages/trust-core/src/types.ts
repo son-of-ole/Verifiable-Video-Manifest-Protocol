@@ -4,6 +4,8 @@ export type FinalAsset = {
   sha256: string;
 };
 
+export type VvmpFinalAsset = FinalAsset;
+
 export type RenditionRecoveryMethod =
   | "trust_code"
   | "qr_url"
@@ -90,10 +92,14 @@ export type VideoRecord = {
   final_asset: FinalAsset;
 };
 
+export type VvmpVideo = VideoRecord;
+
 export type CreationRecord = {
   workflow: string;
   human_oversight_level: string;
 };
+
+export type VvmpCreation = CreationRecord;
 
 export type SourceRecord = {
   source_id: string;
@@ -103,6 +109,8 @@ export type SourceRecord = {
   display_text?: string;
   visibility: string;
 };
+
+export type VvmpSource = SourceRecord;
 
 export type PromptRecord = {
   prompt_id: string;
@@ -114,6 +122,8 @@ export type PromptRecord = {
   created_at?: string;
 };
 
+export type VvmpPrompt = PromptRecord;
+
 export type ToolRecord = {
   tool_id: string;
   tool_type: string;
@@ -122,6 +132,8 @@ export type ToolRecord = {
   purpose: string;
   human_oversight_level?: string;
 };
+
+export type VvmpTool = ToolRecord;
 
 export type TimelineSegment = {
   segment_id: string;
@@ -141,6 +153,26 @@ export type TimelineSegment = {
   audio_asset_ids?: string[];
 };
 
+export type VvmpTimelineSegment = TimelineSegment;
+
+export type VvmpAsset = {
+  asset_id?: string;
+  asset_type?: string;
+  sha256?: string;
+  [key: string]: unknown;
+};
+
+export type VvmpEdit = {
+  edit_event_id?: string;
+  actor?: string;
+  timestamp?: string;
+  target?: string;
+  before_hash?: string;
+  after_hash?: string;
+  public_summary?: string;
+  [key: string]: unknown;
+};
+
 export type GuardrailRecord = {
   guardrail_event_id: string;
   policy_profile: string;
@@ -154,6 +186,63 @@ export type GuardrailRecord = {
   review_mode?: string;
 };
 
+export type VvmpGuardrail = GuardrailRecord;
+
+export type VvmpRightsRecord = {
+  rights_event_id?: string;
+  asset_id?: string;
+  [key: string]: unknown;
+};
+
+export type VvmpRender = {
+  engine?: string;
+  output_hash?: string;
+  [key: string]: unknown;
+};
+
+export type VvmpPublication = {
+  status?: string;
+  profile_claim?: string;
+  registry_url?: string;
+  [key: string]: unknown;
+};
+
+export type VvmpRedaction = {
+  redaction_id?: string;
+  target_collection?: string;
+  record_id?: string;
+  mode?: string;
+  reason?: string;
+  public_summary?: string;
+  [key: string]: unknown;
+};
+
+export type VvmpSignature = {
+  signature_id: string;
+  type: string;
+  signer: string;
+  algorithm?: string;
+  key_id?: string;
+  value?: string;
+  signature?: string;
+  payload_sha256?: string;
+  signed_at?: string;
+  [key: string]: unknown;
+};
+
+export type VvmpLinks = {
+  trust_page?: string;
+  manifest_url?: string;
+  [key: string]: unknown;
+};
+
+export type VvmpExtension = {
+  extension_id: string;
+  version: string;
+  critical: boolean;
+  [key: string]: unknown;
+};
+
 export type VvmpManifest = {
   manifest_version: string;
   manifest_id: string;
@@ -162,17 +251,17 @@ export type VvmpManifest = {
   sources: SourceRecord[];
   prompts: PromptRecord[];
   tools: ToolRecord[];
-  assets: Array<Record<string, unknown>>;
+  assets: VvmpAsset[];
   timeline: TimelineSegment[];
-  edits: Array<Record<string, unknown>>;
+  edits: VvmpEdit[];
   guardrails: GuardrailRecord[];
-  rights: Array<Record<string, unknown>>;
-  render: Record<string, unknown>;
-  publication: Record<string, unknown>;
-  redactions: Array<Record<string, unknown>>;
-  signatures: Array<Record<string, unknown>>;
-  links: Record<string, unknown>;
-  extensions: Array<Record<string, unknown>>;
+  rights: VvmpRightsRecord[];
+  render: VvmpRender;
+  publication: VvmpPublication;
+  redactions: VvmpRedaction[];
+  signatures: VvmpSignature[];
+  links: VvmpLinks;
+  extensions: VvmpExtension[];
 };
 
 export type ManifestSummary = {

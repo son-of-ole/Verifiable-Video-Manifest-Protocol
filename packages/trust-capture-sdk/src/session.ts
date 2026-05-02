@@ -4,6 +4,8 @@ import type {
   SourceRecord,
   TimelineSegment,
   ToolRecord,
+  VvmpExtension,
+  VvmpSignature,
   VvmpManifest
 } from "@vvmp/trust-core";
 import {
@@ -441,9 +443,9 @@ export function createTrustSession(options: TrustSessionOptions): TrustSession {
       render: clone(options.render ?? latestRender),
       publication: clone(options.publication ?? latestPublication),
       redactions,
-      signatures: clone(options.signatures ?? []),
+      signatures: clone(options.signatures ?? []) as VvmpSignature[],
       links: clone(options.links ?? {}),
-      extensions
+      extensions: extensions as VvmpExtension[]
     };
   }
 

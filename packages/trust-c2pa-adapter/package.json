@@ -1,6 +1,6 @@
 {
   "name": "@vvmp/trust-c2pa-adapter",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "VVMP to C2PA adapter for prototype sidecars, C2PA export, verification, trust profiles, and trustmarks.",
   "license": "Apache-2.0",
   "main": "dist/index.js",
@@ -10,7 +10,8 @@
       "types": "./dist/index.d.ts",
       "require": "./dist/index.js",
       "default": "./dist/index.js"
-    }
+    },
+    "./package.json": "./package.json"
   },
   "files": [
     "dist"
@@ -44,6 +45,6 @@
   ],
   "dependencies": {
     "@contentauth/c2pa-node": "^0.5.4",
-    "@vvmp/trust-core": "0.1.0"
+    "@vvmp/trust-core": "0.1.1"
   }
 }

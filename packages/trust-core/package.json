@@ -1,6 +1,6 @@
 {
   "name": "@vvmp/trust-core",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Core VVMP manifest types, canonicalization, validation, summaries, and recovery helpers.",
   "license": "Apache-2.0",
   "main": "dist/index.js",
@@ -11,6 +11,7 @@
       "require": "./dist/index.js",
       "default": "./dist/index.js"
     },
+    "./package.json": "./package.json",
     "./schemas/*": "./schemas/*"
   },
   "files": [
