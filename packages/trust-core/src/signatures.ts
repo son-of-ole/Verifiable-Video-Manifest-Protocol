@@ -38,6 +38,9 @@ function createSignatureId(manifest: VvmpManifest): string {
   return `sig_${String(manifest.signatures.length + 1).padStart(3, "0")}`;
 }
 
+/**
+ * @since 0.1.1
+ */
 export function createManifestSigningPayload(manifest: VvmpManifest): string {
   return canonicalizeJson({
     ...clone(manifest),
@@ -45,11 +48,17 @@ export function createManifestSigningPayload(manifest: VvmpManifest): string {
   });
 }
 
+/**
+ * @since 0.1.1
+ */
 export function createManifestSigningPayloadSha256(manifest: VvmpManifest): string {
   const payload = createManifestSigningPayload(manifest);
   return `sha256:${crypto.createHash("sha256").update(payload).digest("hex")}`;
 }
 
+/**
+ * @since 0.1.1
+ */
 export function appendSignature(
   manifest: VvmpManifest,
   signature: AppendSignatureInput
@@ -68,6 +77,9 @@ export function appendSignature(
   return next;
 }
 
+/**
+ * @since 0.1.1
+ */
 export async function verifySignatures(
   manifest: VvmpManifest,
   verifier: SignatureVerifier

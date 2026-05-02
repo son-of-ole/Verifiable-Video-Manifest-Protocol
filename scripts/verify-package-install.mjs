@@ -67,8 +67,13 @@ const c2pa = require("@vvmp/trust-c2pa-adapter");
   assert.equal(core.canonicalizeJson({ b: 1, a: 2 }), '{"a":2,"b":1}');
   assert.equal(typeof core.validateManifest, "function");
   assert.match(core.VVMP_CORE_VERSION, /^0\\.1\\.\\d+$/);
+  assert.equal(core.VVMP_CORE_VERSION_MAJOR, 0);
+  assert.equal(core.VVMP_CORE_VERSION_MINOR, 1);
+  assert.equal(core.VVMP_CORE_VERSION_PATCH >= 3, true);
+  assert.equal(core.meetsMinimumVersion(0, 1, 2), true);
   assert.equal(typeof core.createEmptyManifest, "function");
   assert.equal(typeof core.withManifestDefaults, "function");
+  assert.equal(typeof core.withFinalAsset, "function");
   assert.equal(typeof core.summarizeManifestSafe, "function");
   assert.equal(typeof core.appendSignature, "function");
   assert.equal(typeof core.verifySignatures, "function");
@@ -87,6 +92,7 @@ const c2pa = require("@vvmp/trust-c2pa-adapter");
 
   const emptyManifest = core.createEmptyManifest({ manifest_id: "urn:vvmp:manifest:consumer-smoke" });
   assert.equal(emptyManifest.edits.length, 0);
+  assert.equal(core.withFinalAsset(emptyManifest), true);
   const draftValidation = core.validateManifest(
     core.withManifestDefaults({
       manifest_id: "urn:vvmp:manifest:consumer-smoke-draft",

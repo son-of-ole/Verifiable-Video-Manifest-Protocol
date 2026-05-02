@@ -11,9 +11,12 @@ npm install @vvmp/trust-core
 ```ts
 import {
   VVMP_CORE_VERSION,
+  VVMP_CORE_VERSION_MAJOR,
   appendSignature,
+  meetsMinimumVersion,
   summarizeManifestSafe,
   validateManifest,
+  withFinalAsset,
   withManifestDefaults
 } from "@vvmp/trust-core";
 
@@ -39,7 +42,11 @@ const manifest = withManifestDefaults({
 
 const validation = validateManifest(manifest);
 if (validation.valid) {
-  console.log(VVMP_CORE_VERSION, summarizeManifestSafe(manifest));
+  console.log(VVMP_CORE_VERSION, VVMP_CORE_VERSION_MAJOR, summarizeManifestSafe(manifest));
+}
+
+if (withFinalAsset(manifest) && meetsMinimumVersion(0, 1, 2)) {
+  console.log(manifest.video.final_asset.sha256);
 }
 
 const signed = appendSignature(manifest, {
@@ -53,5 +60,9 @@ const signed = appendSignature(manifest, {
 Timeline segments must reference at least one of `source_ids`, `prompt_ids`, or `generation_event_ids`. `visibility` is intentionally a string in `trust-core`; integrations may pass product values such as `unlisted`, but should document how those map to public trust-page behavior.
 
 Use `validateManifest(manifest, { profile: "draft" })` while a render is still pending. Draft validation allows an empty or omitted `video.final_asset.sha256`; `validateManifest(manifest, { profile: "production" })` requires a real 64-character SHA-256 digest, optionally prefixed with `sha256:`.
+
+`VvmpManifest` represents a published manifest and keeps `video.final_asset` required. Use `DraftVvmpManifest` for pre-render data or `withFinalAsset()` to narrow a draft-or-published manifest before reading `video.final_asset`.
+
+`ValidationResult.profiles` and `ValidationResult.trustStates` are stable VVMP v1 validation fields that may be persisted at manifest creation time. Helper projections such as `summarizeManifest()` are intended for render-time analysis and may gain better heuristics during pre-1.0 releases.
 
 See the root repository package integration guide for the full package map.

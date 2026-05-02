@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.3 - 2026-05-02
+
+- Restore `VvmpManifest.video.final_asset` as a required published-manifest field, and add explicit `DraftVideoRecord`, `PublishedVideoRecord`, `DraftVvmpManifest`, `PublishedVvmpManifest`, and `VvmpManifestWithFinalAsset` types for pre-render flows.
+- Add `withFinalAsset()` as a type guard for consumers that accept draft or unknown manifests before accessing `video.final_asset`.
+- Add numeric version exports `VVMP_CORE_VERSION_MAJOR`, `VVMP_CORE_VERSION_MINOR`, `VVMP_CORE_VERSION_PATCH`, plus `meetsMinimumVersion()`.
+- Add JSDoc `@since` annotations to public helper exports so editors can surface minimum SDK versions.
+- Add a `@vvmp/trust-schema` peer dependency on `@vvmp/trust-core` to make mismatched installs visible to package managers.
+- Document the `ValidationResult.profiles` and `ValidationResult.trustStates` stability contract and add release-audit notes in `BREAKING_CHANGES.md`.
+
 ## 0.1.2 - 2026-05-02
 
 - Add `validateManifest(manifest, { profile: "draft" | "production" | "auto" })` so pre-render manifests can validate before the final asset hash exists.

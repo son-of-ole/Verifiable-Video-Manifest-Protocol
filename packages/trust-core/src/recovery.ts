@@ -32,6 +32,9 @@ function normalizeUrl(value: string | null | undefined): string | null {
   return value.replace(/\/+$/, "");
 }
 
+/**
+ * @since 0.1.0
+ */
 export function validateRenditionObservation(
   value: unknown
 ): RenditionObservationValidationResult {
@@ -196,6 +199,9 @@ export function validateRenditionObservation(
   };
 }
 
+/**
+ * @since 0.1.0
+ */
 export function buildRecoveryCardSummary(
   manifest: VvmpManifest,
   options: { baseUrl?: string } = {}
@@ -230,6 +236,9 @@ export function buildRecoveryCardSummary(
   };
 }
 
+/**
+ * @since 0.1.0
+ */
 export function compareRenditionObservation(
   manifest: VvmpManifest,
   observation: RenditionObservation,

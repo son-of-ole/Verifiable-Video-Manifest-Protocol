@@ -55,6 +55,12 @@ const manifest = trustCore.withManifestDefaults({
 
 const validation = trustCore.validateManifest(manifest);
 assert(validation.valid, `Manifest with defaults should validate: ${JSON.stringify(validation.issues)}`);
+assert(trustCore.VVMP_CORE_VERSION_MAJOR === 0, "Major version export should be numeric.");
+assert(trustCore.VVMP_CORE_VERSION_MINOR === 1, "Minor version export should be numeric.");
+assert(trustCore.VVMP_CORE_VERSION_PATCH === 3, "Patch version export should be numeric.");
+assert(trustCore.meetsMinimumVersion(0, 1, 2), "Version helper should pass for older patch requirements.");
+assert(!trustCore.meetsMinimumVersion(0, 1, 4), "Version helper should fail for newer patch requirements.");
+assert(trustCore.withFinalAsset(manifest), "withFinalAsset should narrow manifests with a final asset.");
 
 const draftManifest = trustCore.withManifestDefaults({
   ...manifest,
@@ -74,6 +80,7 @@ assert(
   trustCore.validateManifest(draftManifest, { profile: "draft" }).valid,
   "Draft profile should allow a pre-render manifest without a final sha256."
 );
+assert(trustCore.withFinalAsset(draftManifest), "Draft manifests with an empty final asset object still have the final_asset shape.");
 
 const invalidProduction = trustCore.validateManifest(draftManifest, { profile: "production" });
 assert(

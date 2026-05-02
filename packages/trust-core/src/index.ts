@@ -1,9 +1,13 @@
 export type {
   CreationRecord,
+  DraftVideoRecord,
+  DraftVvmpManifest,
   FinalAsset,
   GuardrailRecord,
   ManifestSummary,
   PromptRecord,
+  PublishedVideoRecord,
+  PublishedVvmpManifest,
   RecoveryCardSummary,
   RenditionComparison,
   RenditionObservation,
@@ -27,6 +31,7 @@ export type {
   VvmpGuardrail,
   VvmpLinks,
   VvmpManifest,
+  VvmpManifestWithFinalAsset,
   VvmpPrompt,
   VvmpPublication,
   VvmpRedaction,
@@ -41,6 +46,7 @@ export type {
 export { canonicalizeJson } from "./canonicalize";
 export {
   createEmptyManifest,
+  withFinalAsset,
   withManifestDefaults,
   type ManifestDefaultsInput
 } from "./manifest";
@@ -62,4 +68,10 @@ export {
 } from "./signatures";
 export { summarizeManifest, summarizeManifestSafe } from "./summary";
 export { deriveTrustStates, deriveTrustStatesSafe, validateManifest } from "./validate";
-export { VVMP_CORE_VERSION } from "./version";
+export {
+  VVMP_CORE_VERSION,
+  VVMP_CORE_VERSION_MAJOR,
+  VVMP_CORE_VERSION_MINOR,
+  VVMP_CORE_VERSION_PATCH,
+  meetsMinimumVersion
+} from "./version";

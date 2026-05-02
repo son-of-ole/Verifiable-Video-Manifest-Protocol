@@ -27,12 +27,15 @@ function guessProfile(manifest: VvmpManifest): string {
   return "core_manifest";
 }
 
+/**
+ * @since 0.1.0
+ */
 export function summarizeManifest(manifest: VvmpManifest): ManifestSummary {
   return {
     manifestId: manifest.manifest_id,
     title: manifest.video.title,
     trustCode: manifest.video.trust_code ?? null,
-    durationSeconds: manifest.video.final_asset?.duration_seconds ?? 0,
+    durationSeconds: manifest.video.final_asset.duration_seconds,
     sourceCount: manifest.sources.length,
     promptCount: manifest.prompts.length,
     toolCount: manifest.tools.length,
@@ -44,6 +47,9 @@ export function summarizeManifest(manifest: VvmpManifest): ManifestSummary {
   };
 }
 
+/**
+ * @since 0.1.1
+ */
 export function summarizeManifestSafe(manifest: unknown): ManifestSummary | null {
   const validation = validateManifest(manifest);
   if (!validation.valid) {

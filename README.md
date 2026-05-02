@@ -15,7 +15,10 @@ npm install @vvmp/trust-core
 ```ts
 import {
   VVMP_CORE_VERSION,
+  VVMP_CORE_VERSION_MAJOR,
+  meetsMinimumVersion,
   validateManifest,
+  withFinalAsset,
   withManifestDefaults
 } from "@vvmp/trust-core";
 
@@ -40,6 +43,11 @@ const manifest = withManifestDefaults({
 });
 
 console.log(`vvmp-trust-core@${VVMP_CORE_VERSION}`, validateManifest(manifest));
+console.log({ major: VVMP_CORE_VERSION_MAJOR, hasDraftProfiles: meetsMinimumVersion(0, 1, 2) });
+
+if (withFinalAsset(manifest)) {
+  console.log(manifest.video.final_asset.sha256);
+}
 ```
 
 Install `@vvmp/trust-schema` only when your app needs packaged JSON Schemas, JSON-LD context, examples, registries, or schema-tooling artifacts. If you only need runtime semantic validation, canonical JSON, summaries, defaults, and signature helpers, `@vvmp/trust-core` is enough.
@@ -51,6 +59,8 @@ validateManifest(manifest, { profile: "draft" });
 ```
 
 Before publishing a production trust page, use `validateManifest(manifest, { profile: "production" })`; production validation requires a real 64-character SHA-256 digest, optionally prefixed with `sha256:`.
+
+`ValidationResult.profiles` and `ValidationResult.trustStates` are part of the stable VVMP v1 validation contract. Integrations can persist them as creation-time facts. Projection helpers such as `summarizeManifest()` may evolve heuristics over pre-1.0 releases, so render-time projections should be treated as live analysis rather than stored truth.
 
 VVMP is designed to build on top of C2PA rather than compete with it:
 
@@ -119,6 +129,7 @@ For any supported video, VVMP should help answer:
 - [Real C2PA integration](docs/16-real-c2pa-integration.md)
 - [Package integration guide](docs/17-package-integration.md)
 - [Changelog](CHANGELOG.md)
+- [Breaking changes](BREAKING_CHANGES.md)
 
 ## Examples
 

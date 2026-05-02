@@ -526,6 +526,9 @@ function deriveAiInvolvementState(manifest: VvmpManifest): string {
   return "ai_assisted";
 }
 
+/**
+ * @since 0.1.0
+ */
 export function deriveTrustStates(manifest: VvmpManifest): TrustStateSummary {
   const guardrails = Array.isArray(manifest.guardrails)
     ? (manifest.guardrails as GuardrailRecord[])
@@ -539,6 +542,9 @@ export function deriveTrustStates(manifest: VvmpManifest): TrustStateSummary {
   };
 }
 
+/**
+ * @since 0.1.1
+ */
 export function deriveTrustStatesSafe(manifest: unknown): TrustStateSummary | null {
   const validation = validateManifest(manifest);
   if (!validation.valid) {
@@ -548,6 +554,9 @@ export function deriveTrustStatesSafe(manifest: unknown): TrustStateSummary | nu
   return validation.trustStates;
 }
 
+/**
+ * @since 0.1.0
+ */
 export function validateManifest(
   manifest: unknown,
   options: ValidateManifestOptions = {}

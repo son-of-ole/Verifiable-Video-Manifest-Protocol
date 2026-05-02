@@ -54,8 +54,10 @@ All packages currently target Node.js 20 or newer. The libraries are CommonJS bu
 import {
   VVMP_CORE_VERSION,
   appendSignature,
+  meetsMinimumVersion,
   summarizeManifestSafe,
   validateManifest,
+  withFinalAsset,
   withManifestDefaults
 } from "@vvmp/trust-core";
 
@@ -90,6 +92,11 @@ const signed = appendSignature(manifest, {
 });
 
 console.log(`vvmp-trust-core@${VVMP_CORE_VERSION}`, summarizeManifestSafe(signed));
+console.log({ supportsDraftProfile: meetsMinimumVersion(0, 1, 2) });
+
+if (withFinalAsset(signed)) {
+  console.log(signed.video.final_asset.sha256);
+}
 ```
 
 Use `require("@vvmp/trust-core/package.json")` if you specifically need package metadata; the package also exports `VVMP_CORE_VERSION` for bundle-safe version reporting.
@@ -100,8 +107,10 @@ Use `require("@vvmp/trust-core/package.json")` if you specifically need package 
 - Timeline segments must reference at least one provenance handle: `source_ids`, `prompt_ids`, or `generation_event_ids`. If a scene has no source or prompt, add a generation event identifier from the pipeline that produced that scene.
 - `visibility` is intentionally represented as a string in `trust-core`. The common public trust-page mapping is `public` for public or unlisted trust pages and `private` for records that should not be exposed. If your product has `unlisted`, pass it through or map it explicitly at your boundary.
 - Use `validateManifest(manifest, { profile: "draft" })` for pre-render manifests. Draft validation allows an empty or omitted `video.final_asset.sha256`; `validateManifest(manifest, { profile: "production" })` requires a real 64-character SHA-256 digest, optionally prefixed with `sha256:`.
+- `VvmpManifest` is the published-manifest type and keeps `video.final_asset` required. Use `DraftVvmpManifest` for pre-render data, or `withFinalAsset()` to narrow before accessing `video.final_asset`.
 - `summarizeManifest()` and `deriveTrustStates()` assume a valid manifest. Use `summarizeManifestSafe()` and `deriveTrustStatesSafe()` for user-authored, partial, or pre-validation data.
 - `appendSignature()` stores signature metadata in `manifest.signatures[]`; `verifySignatures()` lets integrations plug in their own HMAC, KMS, C2PA, or detached-signature verifier without writing custom manifest mutation code.
+- `ValidationResult.profiles` and `ValidationResult.trustStates` are stable VVMP v1 validation fields. It is safe to persist them as creation-time validation facts; render-time helpers such as `summarizeManifest()` may evolve heuristics during pre-1.0 releases.
 
 ## Capture SDK Example
 

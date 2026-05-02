@@ -1,7 +1,9 @@
 import type {
   CreationRecord,
+  DraftVvmpManifest,
   FinalAsset,
   VvmpManifest,
+  VvmpManifestWithFinalAsset,
   VideoRecord
 } from "./types";
 
@@ -83,6 +85,9 @@ function mergeObject<T extends Record<string, unknown>>(base: T, input: unknown)
   } as T;
 }
 
+/**
+ * @since 0.1.1
+ */
 export function withManifestDefaults(input: ManifestDefaultsInput = {}): VvmpManifest {
   const manifest = defaultManifest();
   const finalAsset = manifest.video.final_asset ?? defaultFinalAsset();
@@ -115,6 +120,26 @@ export function withManifestDefaults(input: ManifestDefaultsInput = {}): VvmpMan
   return withTopLevel as VvmpManifest;
 }
 
+/**
+ * @since 0.1.1
+ */
 export function createEmptyManifest(input: ManifestDefaultsInput = {}): VvmpManifest {
   return withManifestDefaults(input);
+}
+
+/**
+ * @since 0.1.3
+ */
+export function withFinalAsset(
+  manifest: DraftVvmpManifest | VvmpManifest
+): manifest is VvmpManifestWithFinalAsset {
+  const finalAsset = manifest.video.final_asset;
+
+  return (
+    typeof finalAsset === "object" &&
+    finalAsset !== null &&
+    typeof finalAsset.format === "string" &&
+    typeof finalAsset.duration_seconds === "number" &&
+    typeof finalAsset.sha256 === "string"
+  );
 }

@@ -89,10 +89,14 @@ export type VideoRecord = {
   creator_type: string;
   content_type?: string;
   visibility: string;
-  final_asset?: FinalAsset;
+  final_asset: FinalAsset;
 };
 
 export type VvmpVideo = VideoRecord;
+export type PublishedVideoRecord = VideoRecord;
+export type DraftVideoRecord = Omit<VideoRecord, "final_asset"> & {
+  final_asset?: FinalAsset;
+};
 
 export type CreationRecord = {
   workflow: string;
@@ -263,6 +267,12 @@ export type VvmpManifest = {
   links: VvmpLinks;
   extensions: VvmpExtension[];
 };
+
+export type PublishedVvmpManifest = VvmpManifest;
+export type DraftVvmpManifest = Omit<VvmpManifest, "video"> & {
+  video: DraftVideoRecord;
+};
+export type VvmpManifestWithFinalAsset = PublishedVvmpManifest;
 
 export type ManifestSummary = {
   manifestId: string;

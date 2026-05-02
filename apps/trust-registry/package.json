@@ -1,13 +1,13 @@
 {
   "name": "@vvmp/trust-registry-app",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "private": true,
   "scripts": {
     "build": "next build"
   },
   "dependencies": {
-    "@vvmp/trust-core": "0.1.2",
-    "@vvmp/trust-registry": "0.1.2",
+    "@vvmp/trust-core": "0.1.3",
+    "@vvmp/trust-registry": "0.1.3",
     "next": "16.2.4",
     "react": "19.2.5",
     "react-dom": "19.2.5"
